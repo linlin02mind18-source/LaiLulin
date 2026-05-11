@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f4; --card: #ffffff; --ink: #1a1a1a;
+            --sub: #6b6560; --hint: #b0aba4; --accent: #c8956c;
+            --accent2: #7a9e8a; --border: #ebe8e2;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Noto Sans Thai', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1, h2, .serif { font-family: 'Playfair Display', serif; }
+        .mono { font-family: 'DM Mono', monospace; }
+
+        .profile-container {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.03);
+        }
+
+        .img-placeholder {
+            background: var(--border);
+            background-image: url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg');
+            background-position: center;
+        }
+
+        .social-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            background-color: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: var(--bg);
+            color: var(--sub);
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
+        
+        <div class="md:w-2/5 min-h-[400px] img-placeholder relative">
+            <div class="absolute bottom-6 left-6">
+                <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
+                    <p class="mono text-[10px] uppercase tracking-widest text-[--accent]">Currently Based In</p>
+                    <p class="text-sm font-medium">Bangkok, Thailand</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
+            
+            <header class="mb-8">
+                <h1 class="text-5xl mb-2">AA <span class="text-[--accent]">อชิรกรณ์ สุวิทยะเสถียร</span></h1>
+        
+                <div class="flex gap-4 text-sm text-[--sub] mono">
+                    <span>BUS (because of you i shine)</span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เกิด: 22 มิถุนายน 2549<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> เส้นทางสายศิลปิน
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เดบิวต์ในวง BUS because of you i shine เมื่อวันที่ 6 ธันวาคม 2023 หลังคว้าอันดับ 3 จากรายการ "789 SURVIVAL" 
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="tag">🎸 Guitar & Piano</span>
+                    <span class="tag">🥁 Drumming</span>
+                    <span class="tag">🍱 Japanese Food Lover</span>
+                    <span class="tag">🍣 Japanese Food</span>
+                </div>
+            </div>
+
+            <div class="border-t border-[--border] pt-8">
+                
+                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://www.instagram.com/aa.busofficial/" target="_blank" class="social-btn mono">
+                        <span>IG:</span> aa.busofficial
+                    </a>                    
+                    <a href="https://x.com/aa_ashirakorn" target="_blank" class="social-btn mono">
+                        <span>X:</span> aa_ashirakorn
+                    </a>
+                    <a href="https://www.tiktok.com/@aa.busofficial" target="_blank" class="social-btn mono">
+                        <span>TT:</span> @aa.busofficial
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
