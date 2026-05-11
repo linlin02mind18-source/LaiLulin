@@ -3,97 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AA Ashirakorn | Official</title>
+    <title>My Personal Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg: #faf8f4; --card: #ffffff; --ink: #1a1a1a;
             --sub: #6b6560; --hint: #b0aba4; --accent: #c8956c;
-            --border: #ebe8e2;
+            --accent2: #7a9e8a; --border: #ebe8e2;
         }
-        body { background-color: var(--bg); color: var(--ink); font-family: 'Noto Sans Thai', sans-serif; }
-        .serif { font-family: 'Playfair Display', serif; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: 'Noto Sans Thai', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1, h2, .serif { font-family: 'Playfair Display', serif; }
         .mono { font-family: 'DM Mono', monospace; }
 
-        /* สไตล์เมนูคลิกเข้าไปหน้าใหม่ */
-        .nav-link {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.5rem;
-            color: var(--hint);
-            transition: all 0.4s ease;
-            position: relative;
-            cursor: pointer;
-        }
-        .nav-link:hover {
-            color: var(--accent);
-            padding-left: 10px;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 1px;
-            bottom: 0; left: 0;
-            background-color: var(--accent);
-            transition: width 0.4s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
-
-        .profile-card {
-            background: var(--card);
-            border-radius: 32px;
+        .profile-container {
+            background-color: var(--card);
             border: 1px solid var(--border);
+            border-radius: 32px;
             overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.03);
+        }
+
+        .img-placeholder {
+            background: var(--border);
+            background-image: url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg');
+            background-position: center;
+        }
+
+        .social-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .social-btn:hover {
+            background-color: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+            transform: translateY(-2px);
+        }
+
+        .tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            background: var(--bg);
+            color: var(--sub);
+            border: 1px solid var(--border);
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6">
+<body class="p-4 flex flex-col items-center gap-8">
 
-    <div class="max-w-6xl w-full">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            
-            <div class="md:col-span-7 profile-card flex flex-col md:flex-row shadow-sm">
-                <div class="md:w-1/2 h-[400px]">
-                    <img src="https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg" 
-                         class="w-full h-full object-cover" alt="Profile">
+    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
+        <div class="md:w-2/5 min-h-[450px] img-placeholder relative">
+            <div class="absolute bottom-6 left-6">
+                <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
+                    <p class="mono text-[10px] uppercase tracking-widest text-[--accent]">Currently Based In</p>
+                    <p class="text-sm font-medium">Bangkok, Thailand</p>
                 </div>
-                <div class="md:w-1/2 p-8 flex flex-col justify-center">
-                    <h2 class="serif italic text-[--accent] mb-2">The Artist</h2>
-                    <h1 class="text-4xl font-bold mb-4">AA <span class="text-xl font-light">อชิรกรณ์</span></h1>
-                    <p class="text-sm text-[--sub] leading-relaxed mb-6">
-                        สมาชิกวง BUS (Because of you i shine) ศิลปินผู้มากความสามารถทั้งด้านการร้อง เต้น และการเล่นดนตรี
+            </div>
+        </div>
+        
+        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
+            
+            <header class="mb-8">
+                <h1 class="text-5xl mb-2">AA <span class="text-[--accent]">อชิรกรณ์ สุวิทยะเสถียร</span></h1>
+        
+                <div class="flex gap-4 text-sm text-[--sub] mono">
+                    <span>BUS (because of you i shine)</span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เกิด: 22 มิถุนายน 2549<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย
                     </p>
-                    <div class="flex gap-3">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span>
-                        <span class="w-2 h-2 rounded-full bg-[--border]"></span>
-                        <span class="w-2 h-2 rounded-full bg-[--border]"></span>
-                    </div>
+                </div>
+
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> เส้นทางสายศิลปิน
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เดบิวต์ในวง BUS because of you i shine เมื่อวันที่ 6 ธันวาคม 2023 หลังคว้าอันดับ 3 จากรายการ "789 SURVIVAL" 
                 </div>
             </div>
 
-            <div class="md:col-span-5 flex flex-col gap-6 md:pl-12">
-                <p class="mono text-xs tracking-widest text-[--hint] uppercase">Explore More</p>
+            <div class="mb-10">
+                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="tag">🎸 Guitar</span>
+                    <span class="tag">🎹 Piano</span>
+                    <span class="tag">🥁 Drumming</span>
+                    <span class="tag">🍱 Japanese Food Lover</span>
+                </div>
+            </div>
+
+            <div class="border-t border-[--border] pt-8">
                 
-                <a href="members.html" class="nav-link">
-                    01. Members <span class="text-sm font-normal">/ สมาชิก</span>
-                </a>
+                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://www.instagram.com/aa.busofficial/" target="_blank" class="social-btn mono">
+                        <span>IG:</span> aa.busofficial
+                    </a>                    
+                    <a href="https://x.com/aa_ashirakorn" target="_blank" class="social-btn mono">
+                        <span>X:</span> aa_ashirakorn
+                    </a>
+                    <a href="https://www.tiktok.com/@aa.busofficial" target="_blank" class="social-btn mono">
+                        <span>TT:</span> @aa.busofficial
+                    </a>
+                </div>
+            </div>
 
-                <a href="works.html" class="nav-link">
-                    02. Works <span class="text-sm font-normal">/ ผลงาน</span>
-                </a>
+        </div>
+    </div>
 
-                <a href="about.html" class="nav-link">
-                    03. Biography <span class="text-sm font-normal">/ ประวัติอย่างละเอียด</span>
-                </a>
+     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
+        <div class="md:w-2/5 min-h-[450px] img-placeholder relative">
+            <div class="absolute bottom-6 left-6">
+                <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
+                    <p class="mono text-[10px] uppercase tracking-widest text-[--accent]">Currently Based In</p>
+                    <p class="text-sm font-medium">Bangkok, Thailand</p>
+                </div>
+            </div>
+        </div>
 
-                <div class="mt-8 border-t border-[--border] pt-6">
-                    <p class="text-xs text-[--hint] mono">CONNECT WITH US</p>
-                    <div class="flex gap-4 mt-2">
-                        <a href="#" class="text-lg">📸</a>
-                        <a href="#" class="text-lg">🎶</a>
-                        <a href="#" class="text-lg">✖️</a>
-                    </div>
+        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
+            
+            <header class="mb-8">
+                <h1 class="text-5xl mb-2">AA <span class="text-[--accent]">อชิรกรณ์ สุวิทยะเสถียร</span></h1>
+        
+                <div class="flex gap-4 text-sm text-[--sub] mono">
+                    <span>BUS (because of you i shine)</span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เกิด: 22 มิถุนายน 2549<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> เส้นทางสายศิลปิน
+                    </h3>
+                    <p class="text-[--sub] text-sm leading-relaxed">
+                        เดบิวต์ในวง BUS because of you i shine เมื่อวันที่ 6 ธันวาคม 2023 หลังคว้าอันดับ 3 จากรายการ "789 SURVIVAL" 
+                </div>
+            </div>
+
+            <div class="mb-10">
+                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
+                <div class="flex flex-wrap gap-2">
+                    <span class="tag">🎸 Guitar</span>
+                    <span class="tag">🎹 Piano</span>
+                    <span class="tag">🥁 Drumming</span>
+                    <span class="tag">🍱 Japanese Food Lover</span>
+                </div>
+            </div>
+
+            <div class="border-t border-[--border] pt-8">
+                
+                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://www.instagram.com/aa.busofficial/" target="_blank" class="social-btn mono">
+                        <span>IG:</span> aa.busofficial
+                    </a>                    
+                    <a href="https://x.com/aa_ashirakorn" target="_blank" class="social-btn mono">
+                        <span>X:</span> aa_ashirakorn
+                    </a>
+                    <a href="https://www.tiktok.com/@aa.busofficial" target="_blank" class="social-btn mono">
+                        <span>TT:</span> @aa.busofficial
+                    </a>
                 </div>
             </div>
 
