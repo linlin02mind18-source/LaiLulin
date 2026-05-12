@@ -1,870 +1,301 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members (สมาชิก) </title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #faf8f4; --card: #ffffff; --ink: #1a1a1a;
-            --sub: #6b6560; --hint: #b0aba4; --accent: #c8956c;
-            --accent2: #7a9e8a; --border: #ebe8e2;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Members (สมาชิก)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --card: #ffffff;
+      --ink: #1a1a1a;
+      --sub: #6b6560;
+      --hint: #b0aba4;
+      --accent: #c8956c;
+      --accent2: #7a9e8a;
+      --border: #ebe8e2;
+    }
 
-        body {
-            background-color: var(--bg);
-            color: var(--ink);
-            font-family: 'Noto Sans Thai', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'Noto Sans Thai', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        h1, h2, .serif { font-family: 'Playfair Display', serif; }
-        .mono { font-family: 'DM Mono', monospace; }
+    h1, h2, .serif { font-family: 'Playfair Display', serif; }
+    .mono { font-family: 'DM Mono', monospace; }
 
-        .profile-container {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.03);
-        }
+    .profile-container {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+    }
 
-        .img-placeholder {
-            background: var(--border);
-            background-image: url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg');
-            background-position: center;
-        }
+    .profile-photo {
+      background-size: cover;
+      background-position: center;
+    }
 
-        .social-btn {
-            padding: 10px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .social-btn {
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--ink);
+    }
 
-        .social-btn:hover {
-            background-color: var(--ink);
-            color: var(--bg);
-            border-color: var(--ink);
-            transform: translateY(-2px);
-        }
+    .social-btn:hover {
+      background-color: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+      transform: translateY(-2px);
+    }
 
-        .tag {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            background: var(--bg);
-            color: var(--sub);
-            border: 1px solid var(--border);
-        }
-    </style>
+    .tag {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      background: var(--bg);
+      color: var(--sub);
+      border: 1px solid var(--border);
+    }
+  </style>
 </head>
 <body class="p-4 flex flex-col items-center gap-8">
 
+  <div id="profiles"></div>
+
+  <script>
+    const members = [
+      {
+        name: "ALAN",
+        nameTh: "พศวีร์ ศรีอรุโณทัย",
+        photo: "https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGIdtIYeaMAAbpT-.jpg%3Ffit%3D900%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y",
+        bio: "เกิด: 31 กรกฎาคม 2002 (2545)<br>ราศี: กรกฎ / สิงห์<br>ส่วนสูง: 185 ซม.<br>สาขาวิชาเทคโนโลยีสร้างสรรค์ (Creative Technology) มหาวิทยาลัยมหิดล",
+        personality: "MBTI: ENTP<br>Emoji ประจำตัว: 🦈 (ฉลาม) / 🦊 (จิ้งจอก)<br>จุดเด่น / ตำแหน่ง: Leader, Main Rapper พี่ใหญ่สุดเท่ ผู้เป็นเสาหลักและคอยดูแลน้องๆ ในวง",
+        loves: ["🎸 EDM", "🎹 Hip Hop", "🥁 Rap", "🍱 Beat Making"],
+        socials: [
+          { label: "IG", handle: "alan.busofficial", url: "https://www.instagram.com/alan.busofficial/" },
+          { label: "X",  handle: "alan_pasawee",     url: "https://x.com/alan_pasawee?lang=en" },
+          { label: "TT", handle: "@alan.busofficial", url: "https://www.tiktok.com/@alan.busofficial" },
+        ],
+      },
+      {
+        name: "MARCKRIS",
+        nameTh: "กฤษณ์ กัญจนาทิพย์",
+        photo: "https://s359.thaicdn.net//pagebuilder/41b297b3-3ef4-4022-9732-663d79b2a012.jpg",
+        bio: "เกิด: 12 ธันวาคม 2002 (2545)<br>ราศี: พิจิก / ธนู<br>ส่วนสูง: 172 ซม.<br>การศึกษา: คณะสถาปัตยกรรมศาสตร์ หลักสูตรนานาชาติ (INDA) จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🦖 (ไดโนเสาร์)<br>จุดเด่น / ตำแหน่ง: Main Vocal เจ้าของเสียงร้องทรงพลัง และแฮปปี้ไวรัสประจำวง",
+        loves: ["🎸 Guitar", "🎹 Piano", "🥁 Drawing", "🍱 Harry Styles"],
+        socials: [
+          { label: "IG", handle: "marckris.busofficial", url: "https://www.instagram.com/marckris.busofficial" },
+          { label: "X",  handle: "Marckrisk",            url: "https://x.com/Marckrisk" },
+          { label: "TT", handle: "@marckris.busofficial", url: "https://www.tiktok.com/@marckris.busofficial" },
+        ],
+      },
+      {
+        name: "KHUNPOL",
+        nameTh: "ปองพล ปัญญามิตร",
+        photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2023/NOV%202023/Khunpol%20in%20Paris/655adce025048.jpeg",
+        bio: "เกิด: 17 มีนาคม 2003 (2546)<br>ราศี: มีน<br>ส่วนสูง: 179 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: INTJ<br>Emoji ประจำตัว: 🐧 (เพนกวิน)<br>จุดเด่น / ตำแหน่ง: Main Dance เพอร์ฟอร์แมนซ์บนเวทีดึงดูดสายตา มีความมุ่งมั่นและคาริสม่าสูง",
+        loves: ["🎸 Manga", "🎹 Classic Movies", "🥁 Green Color", "🍱 Japanese Food Lover"],
+        socials: [
+          { label: "IG", handle: "khunpol.busofficial",  url: "https://www.instagram.com/khunpol.busofficial" },
+          { label: "X",  handle: "khunppol",             url: "https://x.com/khunppol" },
+          { label: "TT", handle: "@khunpol.busofficial", url: "https://www.tiktok.com/@khunpol.busofficial" },
+        ],
+      },
+      {
+        name: "HEART",
+        nameTh: "ชุติวัฒน์ จันเคน",
+        photo: "https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGH-mOyvaoAA1c3U.jpg%3Ffit%3D796%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y",
+        bio: "เกิด: 8 เมษายน 2003 (2546)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 174 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐶 (หมูอูด) / 💖 (หัวใจ)<br>จุดเด่น / ตำแหน่ง: Main Dance เต้นเก่ง ไลน์เต้นสวยพริ้วไหว และเป็นเจ้าของรอยยิ้มละลายใจ",
+        loves: ["🥁 Singing", "🎹 Dancing", "🎸 Guitar", "🍱 Pink Color"],
+        socials: [
+          { label: "IG", handle: "heart.busofficial",  url: "https://www.instagram.com/heart.busofficial/" },
+          { label: "X",  handle: "heartchuthiwat",     url: "https://x.com/heartchuthiwat" },
+          { label: "TT", handle: "@heart.busofficial", url: "https://www.tiktok.com/@heart.busofficial" },
+        ],
+      },
+      {
+        name: "JINWOOK",
+        nameTh: "คิม จินวุค (Kim Jinwook)",
+        photo: "https://pbs.twimg.com/media/Gqo9iuiXcAA5HrF?format=jpg&name=small",
+        bio: "เกิด: 16 กรกฎาคม 2004 (2547)<br>ราศี: กรกฎ<br>ส่วนสูง: 178 ซม.<br>การศึกษา: คณะบริหารธุรกิจ (BBA) มหาวิทยาลัยอัสสัมชัญ",
+        personality: "MBTI: ENFJ<br>Emoji ประจำตัว: 🐰 (กระต่าย)<br>จุดเด่น / ตำแหน่ง: Lead Vocal พี่ชายชาวเกาหลีที่แสนอบอุ่น เสียงร้องละมุน และมีใจรักแฟชั่น",
+        loves: ["🎸 Music", "🎹 Writing Songs", "🥁 Singing", "🍱 Fashion"],
+        socials: [
+          { label: "IG", handle: "jinwook.busofficial",  url: "https://www.instagram.com/jinwook.busofficial/" },
+          { label: "X",  handle: "Jinwookkimjin",        url: "https://x.com/Jinwookkimjin" },
+          { label: "TT", handle: "@jinwook.busofficial", url: "https://www.tiktok.com/@jinwook.busofficial" },
+        ],
+      },
+      {
+        name: "THAI",
+        nameTh: "ชญานนท์ ภาคฐิน",
+        photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/SEP%202024/TMC/66e506bed1031.jpg",
+        bio: "เกิด: 26 กันยายน 2004 (2547)<br>ราศี: กันย์ / ตุลย์<br>ส่วนสูง: 178.5 ซม.<br>การศึกษา: คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเกษตรศาสตร์",
+        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐻 (หมา)<br>จุดเด่น / ตำแหน่ง: Sub Vocal / Visual หล่อออร่าโดดเด่น มีความขี้เล่นและเข้ากับคนง่าย",
+        loves: ["🎸 Playing Games", "🎹 Football", "🥁 Music", "🍱 Action Movies"],
+        socials: [
+          { label: "IG", handle: "thai.busofficial",  url: "https://www.instagram.com/thai.busofficial/" },
+          { label: "X",  handle: "thaichayanon",      url: "https://x.com/thaichayanon" },
+          { label: "TT", handle: "@thai.busofficial", url: "https://www.tiktok.com/@thai.busofficial" },
+        ],
+      },
+      {
+        name: "NEX",
+        nameTh: "ณัฐกิตติ์ แช่มดารา",
+        photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/MAR%202025/KHUNPOL%20BD/67d7f20850020.jpg",
+        bio: "เกิด: 18 มีนาคม 2005 (2548)<br>ราศี: มีน<br>ส่วนสูง: 180 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐷 (แมวดำ)<br>จุดเด่น / ตำแหน่ง: Main Dance สายแฟชั่นนิสต้าตัวยง มีเอกลักษณ์เฉพาะตัวเวลาเพอร์ฟอร์ม",
+        loves: ["🎸 Dancing", "🎹 Fashion", "🥁 Art", "🍱 Photography"],
+        socials: [
+          { label: "IG", handle: "nex.busofficial",  url: "https://www.instagram.com/nex.busofficial/" },
+          { label: "X",  handle: "NxNattakit",       url: "https://x.com/NxNattakit" },
+          { label: "TT", handle: "@nex.busofficial", url: "https://www.tiktok.com/@nex.busofficial" },
+        ],
+      },
+      {
+        name: "PHUTATCHAI",
+        nameTh: "ธัชชัย ลิ้มปัญญากุล",
+        photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/APR/PHU%20BUS/67f4c80d10dd8.jpg",
+        bio: "เกิด: 10 เมษายน 2005 (2548)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 183 ซม.<br>การศึกษา: สาขาปรัชญา การเมือง และเศรษฐศาสตร์ (PPE) มหาวิทยาลัยธรรมศาสตร์",
+        personality: "MBTI: ESTP<br>Emoji ประจำตัว: 🐶 (หมาซามอยส์)<br>จุดเด่น / ตำแหน่ง: Lead Vocal พลังงานล้นเหลือ มีภาพลักษณ์หนุ่มสปอร์ตและเสียงร้องเป็นเอกลักษณ์",
+        loves: ["🎸 Ice Hockey", "🎹 Singing", "🥁 Music", "🍱 Japanese Food Lover"],
+        socials: [
+          { label: "IG", handle: "phutatchai.busofficial",  url: "https://www.instagram.com/phutatchai.busofficial" },
+          { label: "X",  handle: "phutatchai",              url: "https://x.com/phutatchai" },
+          { label: "TT", handle: "@phutatchai.busofficial", url: "https://www.tiktok.com/@phutatchai.busofficial" },
+        ],
+      },
+      {
+        name: "COPPER",
+        nameTh: "เดชาวัต พรเดชาพิพัฒ",
+        photo: "https://www.siamzone.com/ig/media/13787241138/3435918834732189653-1.jpg",
+        bio: "เกิด: 18 เมษายน 2006 (2549)<br>ราศี: เมษ<br>ส่วนสูง: 173 ซม.<br>การศึกษา: วิทยาลัยนวัตกรรมสื่อสารสังคม มหาวิทยาลัยศรีนครินทรวิโรฒ",
+        personality: "MBTI: ESFJ<br>Emoji ประจำตัว: 🐱 (แมวส้ม)<br>จุดเด่น / ตำแหน่ง: Main Vocal เอนเตอร์เทนเนอร์เก่ง ร่าเริงสดใส สร้างเสียงหัวเราะให้วงเสมอ",
+        loves: ["🎸 Guitar", "🎹 Piano", "🥁 Drumming", "🍱 Japanese Food Lover"],
+        socials: [
+          { label: "IG", handle: "copper.busofficial",  url: "https://www.instagram.com/copper.busofficial" },
+          { label: "X",  handle: "cucopper11",          url: "https://x.com/cucopper11" },
+          { label: "TT", handle: "@copper.busofficial", url: "https://www.tiktok.com/@copper.busofficial" },
+        ],
+      },
+      {
+        name: "AA",
+        nameTh: "อชิรกรณ์ สุวิทยะเสถียร",
+        photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg",
+        bio: "เกิด: 22 มิถุนายน 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: INFP<br>Emoji ประจำตัว: 🐱 (แมว)<br>จุดเด่น / ตำแหน่ง: Lead Vocal น่ารักตะมุตะมิ มีทักษะการเล่นดนตรีที่หลากหลาย",
+        loves: ["🎸 Guitar", "🎹 Piano", "🥁 Drumming", "🍱 Japanese Food Lover"],
+        socials: [
+          { label: "IG", handle: "aa.busofficial",  url: "https://www.instagram.com/aa.busofficial/" },
+          { label: "X",  handle: "aa_ashirakorn",   url: "https://x.com/aa_ashirakorn" },
+          { label: "TT", handle: "@aa.busofficial", url: "https://www.tiktok.com/@aa.busofficial" },
+        ],
+      },
+      {
+        name: "JUNG T",
+        nameTh: "ธีร์ บุญเสริมสุวงศ์",
+        photo: "https://www.imgcomp.thebeus.com/compressed/jungt.busofficial_1749649967320.webp",
+        bio: "เกิด: 3 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 175 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: INTP<br>Emoji ประจำตัว: 🦦 (นาก)<br>จุดเด่น / ตำแหน่ง: Main Rapper แร็ปเปอร์เสียงทุ้มต่ำ เสน่ห์แพรวพราวและมีความเท่สไตล์คูลๆ",
+        loves: ["🎸 Rap", "🎹 Dancing", "🥁 Drawing", "🍱 Music"],
+        socials: [
+          { label: "IG", handle: "jungt.busofficial",  url: "https://www.instagram.com/jungt.busofficial/" },
+          { label: "X",  handle: "Jungyippy",          url: "https://x.com/Jungyippy?lang=en" },
+          { label: "TT", handle: "jungt.busofficial",  url: "https://www.tiktok.com/@jungt.busofficial" },
+        ],
+      },
+      {
+        name: "PEEMWASU",
+        nameTh: "วสุพล พรพนานุรักษ์",
+        photo: "https://s359.kapook.com/pagebuilder/a0cbb40c-1f26-40bd-b6fb-9ea525814e28.jpg",
+        bio: "เกิด: 8 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 187 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐶 (โกลเด้น) / 🦒 (ยีราฟ)<br>จุดเด่น / ตำแหน่ง: Main Vocal / Lead Dance น้องเล็กตัวสูงปรี๊ด เสียงร้อง R&B โดดเด่น และกวนๆ ขี้เล่น",
+        loves: ["🎸 Singing", "🎹 Dancing", "🥁 TikTok", "🍱 Fashion"],
+        socials: [
+          { label: "IG", handle: "peemwasu.busofficial",  url: "https://www.instagram.com/peemwasu.busofficial" },
+          { label: "X",  handle: "PEEMWASU_",             url: "https://x.com/PEEMWASU_" },
+          { label: "TT", handle: "@peemwasu.busofficial", url: "https://www.tiktok.com/@peemwasu.busofficial" },
+        ],
+      },
+    ];
+
+    function renderMember(m) {
+      const tags = m.loves.map(l => `<span class="tag">${l}</span>`).join("\n            ");
+      const socials = m.socials.map(s => `
+          <a href="${s.url}" target="_blank" class="social-btn mono">
+            <span>${s.label}:</span> ${s.handle}
+          </a>`).join("");
+
+      return `
     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGIdtIYeaMAAbpT-.jpg%3Ffit%3D900%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-        
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">ALAN  <br><span class="text-[--accent]">พศวีร์ ศรีอรุโณทัย</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
+      <div class="md:w-2/5 min-h-[450px] profile-photo"
+           style="background-image: url('${m.photo}');">
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                         เกิด: 31 กรกฎาคม 2002 (2545)<br>ราศี: กรกฎ / สิงห์<br>ส่วนสูง: 185 ซม.<br>สาขาวิชาเทคโนโลยีสร้างสรรค์ (Creative Technology) มหาวิทยาลัยมหิดล
-                    </p>
-                </div>
+      <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
+        <header class="mb-8">
+          <h1 class="text-5xl mb-2">${m.name}<br>
+            <span class="text-[--accent]">${m.nameTh}</span>
+          </h1>
+          <div class="flex gap-4 text-sm text-[--sub] mono">
+            <span>BUS (because of you i shine)</span>
+          </div>
+        </header>
 
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENTP<br>Emoji ประจำตัว: 🦈 (ฉลาม) / 🦊 (จิ้งจอก)<br>จุดเด่น / ตำแหน่ง: Leader, Main Rapper พี่ใหญ่สุดเท่ ผู้เป็นเสาหลักและคอยดูแลน้องๆ ในวง
-                    </p>
-                </div>
-
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 EDM</span>
-                    <span class="tag">🎹 Hip Hop</span>
-                    <span class="tag">🥁 Rap</span>
-                    <span class="tag">🍱 Beat Making</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/alan.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> alan.busofficial
-                    </a>                    
-                    <a href="https://x.com/alan_pasawee?lang=en" target="_blank" class="social-btn mono">
-                        <span>X:</span> alan_pasawee
-                    </a>
-                    <a href="https://www.tiktok.com/@alan.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @alan.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://s359.thaicdn.net//pagebuilder/41b297b3-3ef4-4022-9732-663d79b2a012.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+          <div>
+            <h3 class="serif text-xl mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
+            </h3>
+            <p class="text-[--sub] text-sm leading-relaxed">${m.bio}</p>
+          </div>
+          <div>
+            <h3 class="serif text-xl mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
+            </h3>
+            <p class="text-[--sub] text-sm leading-relaxed">${m.personality}</p>
+          </div>
         </div>
 
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">MARCKRIS <br><span class="text-[--accent]">กฤษณ์ กัญจนาทิพย์</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 12 ธันวาคม 2002 (2545)<br>ราศี: พิจิก / ธนู<br>ส่วนสูง: 172 ซม.<br>การศึกษา: คณะสถาปัตยกรรมศาสตร์ หลักสูตรนานาชาติ (INDA) จุฬาลงกรณ์มหาวิทยาลัย
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFP<br>Emoji ประจำตัว: 🦖 (ไดโนเสาร์)<br>จุดเด่น / ตำแหน่ง: Main Vocal เจ้าของเสียงร้องทรงพลัง และแฮปปี้ไวรัสประจำวง
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Guitar</span>
-                    <span class="tag">🎹 Piano</span>
-                    <span class="tag">🥁 Drawing</span>
-                    <span class="tag">🍱 Harry Styles</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/marckris.busofficial" target="_blank" class="social-btn mono">
-                        <span>IG:</span> marckris.busofficial
-                    </a>                    
-                    <a href="https://x.com/Marckrisk" target="_blank" class="social-btn mono">
-                        <span>X:</span> Marckrisk
-                    </a>
-                    <a href="https://www.tiktok.com/@marckris.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @marckris.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2023/NOV%202023/Khunpol%20in%20Paris/655adce025048.jpeg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
+        <div class="mb-10">
+          <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
+          <div class="flex flex-wrap gap-2">
+            ${tags}
+          </div>
         </div>
 
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">KHUNPOL <br><span class="text-[--accent]">ปองพล ปัญญามิตร</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 17 มีนาคม 2003 (2546)<br>ราศี: มีน<br>ส่วนสูง: 179 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: INTJ<br>Emoji ประจำตัว: 🐧 (เพนกวิน)<br>จุดเด่น / ตำแหน่ง: Main Dance เพอร์ฟอร์แมนซ์บนเวทีดึงดูดสายตา มีความมุ่งมั่นและคาริสม่าสูง
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Manga</span>
-                    <span class="tag">🎹 Classic Movies</span>
-                    <span class="tag">🥁 Green Color</span>
-                    <span class="tag">🍱 Japanese Food Lover</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/khunpol.busofficial"_blank" class="social-btn mono">
-                        <span>IG:</span> khunpol.busofficial
-                    </a>                    
-                    <a href="https://x.com/khunppol" target="_blank" class="social-btn mono">
-                        <span>X:</span> khunppol
-                    </a>
-                    <a href="https://www.tiktok.com/@khunpol.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @khunpol.busofficial
-                    </a>
-                </div>
-            </div>
-
+        <div class="border-t border-[--border] pt-8">
+          <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
+          <div class="flex flex-wrap gap-3">
+            ${socials}
+          </div>
         </div>
-    </div>
-
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGH-mOyvaoAA1c3U.jpg%3Ffit%3D796%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-        
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">HEART <br><span class="text-[--accent]">ชุติวัฒน์ จันเคน</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 8 เมษายน 2003 (2546)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 174 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFP<br>Emoji ประจำตัว: 🐶 (หมูอูด) / 💖 (หัวใจ)<br>จุดเด่น / ตำแหน่ง: Main Dance เต้นเก่ง ไลน์เต้นสวยพริ้วไหว และเป็นเจ้าของรอยยิ้มละลายใจ
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🥁Singing</span>
-                    <span class="tag">🎹 Dancing</span>
-                    <span class="tag">🎸 Guitar</span>
-                    <span class="tag">🍱 Pink Color</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/heart.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> heart.busofficial
-                    </a>                    
-                    <a href="https://x.com/heartchuthiwat" target="_blank" class="social-btn mono">
-                        <span>X:</span> heartchuthiwat
-                    </a>
-                    <a href="https://www.tiktok.com/@heart.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @heart.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://pbs.twimg.com/media/Gqo9iuiXcAA5HrF?format=jpg&name=small');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">JINWOOK <br><span class="text-[--accent]">คิม จินวุค (Kim Jinwook)</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 16 กรกฎาคม 2004 (2547)<br>ราศี: กรกฎ<br>ส่วนสูง: 178 ซม.<br>การศึกษา: คณะบริหารธุรกิจ (BBA) มหาวิทยาลัยอัสสัมชัญ
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFJ<br>Emoji ประจำตัว: 🐰 (กระต่าย)<br>จุดเด่น / ตำแหน่ง: Lead Vocal พี่ชายชาวเกาหลีที่แสนอบอุ่น เสียงร้องละมุน และมีใจรักแฟชั่น
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Music</span>
-                    <span class="tag">🎹 Writing Songs</span>
-                    <span class="tag">🥁 Singing</span>
-                    <span class="tag">🍱 Fashion</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/jinwook.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> jinwook.busofficial
-                    </a>                    
-                    <a href="https://x.com/Jinwookkimjin" target="_blank" class="social-btn mono">
-                        <span>X:</span> Jinwookkimjin
-                    </a>
-                    <a href="https://www.tiktok.com/@jinwook.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @jinwook.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/SEP%202024/TMC/66e506bed1031.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">THAI <br><span class="text-[--accent]">ชญานนท์ ภาคฐิน</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 26 กันยายน 2004 (2547)<br>ราศี: กันย์ / ตุลย์<br>ส่วนสูง: 178.5 ซม.<br>การศึกษา: คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเกษตรศาสตร์
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFP<br>Emoji ประจำตัว: 🐻 (หมา)<br>จุดเด่น / ตำแหน่ง: Sub Vocal / Visual หล่อออร่าโดดเด่น มีความขี้เล่นและเข้ากับคนง่าย
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Playing Games</span>
-                    <span class="tag">🎹 Football</span>
-                    <span class="tag">🥁 Music</span>
-                    <span class="tag">🍱 Action Movies</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/thai.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> thai.busofficial
-                    </a>                    
-                    <a href="https://x.com/thaichayanon" target="_blank" class="social-btn mono">
-                        <span>X:</span> thaichayanon
-                    </a>
-                    <a href="https://www.tiktok.com/@thai.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @thai.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/MAR%202025/KHUNPOL%20BD/67d7f20850020.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-        
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">NEX <br><span class="text-[--accent]">ณัฐกิตติ์ แช่มดารา</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 18 มีนาคม 2005 (2548)<br>ราศี: มีน<br>ส่วนสูง: 180 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFP<br>Emoji ประจำตัว: 🐷 (แมวดำ)<br>จุดเด่น / ตำแหน่ง: Main Dance สายแฟชั่นนิสต้าตัวยง มีเอกลักษณ์เฉพาะตัวเวลาเพอร์ฟอร์ม
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Dancing</span>
-                    <span class="tag">🎹 Fashion</span>
-                    <span class="tag">🥁 Art</span>
-                    <span class="tag">🍱 Photography</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/nex.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> nex.busofficial
-                    </a>                    
-                    <a href="https://x.com/NxNattakit" target="_blank" class="social-btn mono">
-                        <span>X:</span> NxNattakit
-                    </a>
-                    <a href="https://www.tiktok.com/@nex.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @nex.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/APR/PHU%20BUS/67f4c80d10dd8.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">PHUTATCHAI <br><span class="text-[--accent]">ธัชชัย ลิ้มปัญญากุล</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 10 เมษายน 2005 (2548)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 183 ซม.<br>การศึกษา: สาขาปรัชญา การเมือง และเศรษฐศาสตร์ (PPE) มหาวิทยาลัยธรรมศาสตร์
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ESTP<br>Emoji ประจำตัว: 🐶 (หมาซามอยส์)<br>จุดเด่น / ตำแหน่ง: Lead Vocal พลังงานล้นเหลือ มีภาพลักษณ์หนุ่มสปอร์ตและเสียงร้องเป็นเอกลักษณ์
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Ice Hockey</span>
-                    <span class="tag">🎹 Singing</span>
-                    <span class="tag">🥁 Music</span>
-                    <span class="tag">🍱 Japanese Food Lover</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/phutatchai.busofficial" target="_blank" class="social-btn mono">
-                        <span>IG:</span> phutatchai.busofficial
-                    </a>                    
-                    <a href="https://x.com/phutatchai" target="_blank" class="social-btn mono">
-                        <span>X:</span> phutatchai
-                    </a>
-                    <a href="https://www.tiktok.com/@phutatchai.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @phutatchai.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-     <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://www.siamzone.com/ig/media/13787241138/3435918834732189653-1.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">COPPER <br><span class="text-[--accent]">เดชาวัต พรเดชาพิพัฒ</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 18 เมษายน 2006 (2549)<br>ราศี: เมษ<br>ส่วนสูง: 173 ซม.<br>การศึกษา: วิทยาลัยนวัตกรรมสื่อสารสังคม มหาวิทยาลัยศรีนครินทรวิโรฒ
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ESFJ<br>Emoji ประจำตัว: (แมวส้ม)<br>จุดเด่น / ตำแหน่ง: Main Vocal เอนเตอร์เทนเนอร์เก่ง ร่าเริงสดใส สร้างเสียงหัวเราะให้วงเสมอ
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Guitar</span>
-                    <span class="tag">🎹 Piano</span>
-                    <span class="tag">🥁 Drumming</span>
-                    <span class="tag">🍱 Japanese Food Lover</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/copper.busofficial" target="_blank" class="social-btn mono">
-                        <span>IG:</span> copper.busofficial
-                    </a>                    
-                    <a href="https://x.com/cucopper11" target="_blank" class="social-btn mono">
-                        <span>X:</span> cucopper11
-                    </a>
-                    <a href="https://www.tiktok.com/@copper.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @copper.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/DEC%202024/AA%20SunGlass/6764e12f4b64c.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">AA <span class="text-[--accent]">อชิรกรณ์ สุวิทยะเสถียร</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 22 มิถุนายน 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: INFP<br>Emoji ประจำตัว: 🐱 (แมว)<br>จุดเด่น / ตำแหน่ง: Lead Vocal น่ารักตะมุตะมิ มีทักษะการเล่นดนตรีที่หลากหลาย
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Guitar</span>
-                    <span class="tag">🎹 Piano</span>
-                    <span class="tag">🥁 Drumming</span>
-                    <span class="tag">🍱 Japanese Food Lover</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/aa.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> aa.busofficial
-                    </a>                    
-                    <a href="https://x.com/aa_ashirakorn" target="_blank" class="social-btn mono">
-                        <span>X:</span> aa_ashirakorn
-                    </a>
-                    <a href="https://www.tiktok.com/@aa.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @aa.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://www.imgcomp.thebeus.com/compressed/jungt.busofficial_1749649967320.webp');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">JUNG T <br><span class="text-[--accent]">ธีร์ บุญเสริมสุวงศ์</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 3 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 175 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: INTP<br>Emoji ประจำตัว: 🦦 (นาก)<br>จุดเด่น / ตำแหน่ง: Main Rapper แร็ปเปอร์เสียงทุ้มต่ำ เสน่ห์แพรวพราวและมีความเท่สไตล์คูลๆ
-                        </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Rap</span>
-                    <span class="tag">🎹 Dancing</span>
-                    <span class="tag">🥁 Drawing</span>
-                    <span class="tag">🍱 Music</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/jungt.busofficial/" target="_blank" class="social-btn mono">
-                        <span>IG:</span> jungt.busofficial
-                    </a>                    
-                    <a href="https://x.com/Jungyippy?lang=en" target="_blank" class="social-btn mono">
-                        <span>X:</span> Jungyippy
-                    </a>
-                    <a href="https://www.instagram.com/jungt.busofficial/" target="_blank" class="social-btn mono">
-                        <span>TT:</span> jungt.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-        <div class="md:w-2/5 min-h-[450px] relative" 
-            style= "background-image:url('https://s359.kapook.com/pagebuilder/a0cbb40c-1f26-40bd-b6fb-9ea525814e28.jpg');background-size:cover;background-position:center;" >
-            <div class="absolute bottom-6 left-6">
-            </div>
-        </div>
-
-        <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-            
-            <header class="mb-8">
-                <h1 class="text-5xl mb-2">PEEMWASU <br><span class="text-[--accent]">วสุพล พรพนานุรักษ์</span></h1>
-        
-                <div class="flex gap-4 text-sm text-[--sub] mono">
-                    <span>BUS (because of you i shine)</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        เกิด: 8 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 187 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ
-                    </p>
-                </div>
-
-                <div>
-                    <h3 class="serif text-xl mb-3 flex items-center gap-2">
-                        <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> เส้นทางสายศิลปิน
-                    </h3>
-                    <p class="text-[--sub] text-sm leading-relaxed">
-                        MBTI: ENFP<br>Emoji ประจำตัว: 🐶 (โกลเด้น) / 🦒 (ยีราฟ)<br>จุดเด่น / ตำแหน่ง: Main Vocal / Lead Dance น้องเล็กตัวสูงปรี๊ด เสียงร้อง R&B โดดเด่น และกวนๆ ขี้เล่น
-                    </p>
-                </div>
-            </div>
-
-            <div class="mb-10">
-                <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tag">🎸 Singing</span>
-                    <span class="tag">🎹 Dancing</span>
-                    <span class="tag">🥁 TikTok</span>
-                    <span class="tag">🍱 Fashion</span>
-                </div>
-            </div>
-
-            <div class="border-t border-[--border] pt-8">
-                
-                <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="https://www.instagram.com/peemwasu.busofficial" target="_blank" class="social-btn mono">
-                        <span>IG:</span> peemwasu.busofficial
-                    </a>                    
-                    <a href="https://x.com/PEEMWASU_" target="_blank" class="social-btn mono">
-                        <span>X:</span> PEEMWASU_
-                    </a>
-                    <a href="https://www.tiktok.com/@peemwasu.busofficial" target="_blank" class="social-btn mono">
-                        <span>TT:</span> @peemwasu.busofficial
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
-
+      </div>
+    </div>`;
+    }
+
+    document.getElementById("profiles").innerHTML =
+      members.map(renderMember).join("\n");
+  </script>
 
 </body>
 </html>
