@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUS — Discography</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --card: #ffffff;
+      --ink: #1a1a1a;
+      --sub: #6b6560;
+      --hint: #b0aba4;
+      --accent: #c8956c;
+      --accent2: #7a9e8a;
+      --border: #ebe8e2;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: 'Noto Sans Thai', sans-serif;
+      min-height: 100vh;
+      padding: 48px 16px 80px;
+    }
+
+    h1, h2, .serif { font-family: 'Playfair Display', serif; }
+    .mono { font-family: 'DM Mono', monospace; }
+
+    .page-header {
+      max-width: 960px;
+      margin: 0 auto 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 32px;
+    }
+
+    .page-header h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1;
+    }
+
+    .page-header h1 span {
+      color: var(--accent);
+    }
+
+    .page-header p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--hint);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .filter-bar {
+      max-width: 960px;
+      margin: 0 auto 32px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--sub);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .table-wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .col-header {
+      display: grid;
+      grid-template-columns: 1fr 160px 130px 150px;
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .col-header span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--hint);
+    }
+
+    .col-header span:not(:first-child) {
+      text-align: center;
+    }
+
+    .col-header span:last-child {
+      text-align: right;
+    }
+
+    .track-row {
+      display: grid;
+      grid-template-columns: 1fr 160px 130px 150px;
+      align-items: center;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s ease;
+      cursor: default;
+    }
+
+    .track-row:last-child { border-bottom: none; }
+
+    .track-row:hover { background: var(--bg); }
+
+    .track-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .track-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: var(--border);
+      flex-shrink: 0;
+    }
+
+    .track-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .track-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--hint);
+      margin-top: 3px;
+    }
+
+    .track-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--sub);
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+
+    .track-type {
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-family: 'DM Mono', monospace;
+      border: 1px solid var(--border);
+      color: var(--sub);
+      background: var(--bg);
+      white-space: nowrap;
+    }
+
+    .tag.unit-all { border-color: #c8956c55; color: var(--accent); background: #c8956c11; }
+    .tag.unit-5   { border-color: #7a9e8a55; color: var(--accent2); background: #7a9e8a11; }
+    .tag.unit-7   { border-color: #7a8fbe55; color: #5a6fa0; background: #7a8fbe11; }
+
+    .track-listen { text-align: right; }
+
+    .yt-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border-radius: 40px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .yt-btn:hover {
+      background: #ff0000;
+      border-color: #ff0000;
+      color: #fff;
+    }
+
+    .yt-btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 680px) {
+      .col-header { grid-template-columns: 1fr 120px; }
+      .col-header span:nth-child(2),
+      .col-header span:nth-child(3) { display: none; }
+      .track-row { grid-template-columns: 1fr 120px; }
+      .track-date, .track-type { display: none; }
+      .track-thumb { width: 44px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="mb-8">
+      <a href="index.html" style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sub); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:color 0.2s;"
+         onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--sub)'">
+        &larr; Back to Home
+      </a>
+    </div>
+    <div>
+      <p style="font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--accent); margin-bottom:8px;">Discography</p>
+      <h1 class="serif" style="font-size:clamp(2.2rem,5vw,3.8rem); font-style:italic; line-height:1.1; margin-bottom:10px;">BUS (because of you i shine)</h1>
+      <p style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--sub); font-weight:700;">Music Releases</p>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterTracks('all', this)">ทั้งหมด</button>
+    <button class="filter-btn" onclick="filterTracks('BUS', this)">BUS (Full)</button>
+    <button class="filter-btn" onclick="filterTracks('BUS5', this)">BUS5</button>
+    <button class="filter-btn" onclick="filterTracks('BUS7', this)">BUS7</button>
+    <button class="filter-btn" onclick="filterTracks('789 TRAINEE', this)">789 TRAINEE</button>
+    <button class="filter-btn" onclick="filterTracks('Special Single', this)">Special Single</button>
+    <button class="filter-btn" onclick="filterTracks('LIVE SESSION', this)">LIVE SESSION</button>
+    <button class="filter-btn" onclick="filterTracks('BUS COVER PROJECT', this)">BUS COVER PROJECT</button>
+  </div>
+
+  <div class="table-wrap">
+    <div class="col-header">
+      <span>Track</span>
+      <span>Release Date</span>
+      <span>Type</span>
+      <span>Listen</span>
+    </div>
+    <div id="track-list"></div>
+  </div>
+
+  <script>
+    const tracks = [
+      { title: "LIMIT BREAK 24",  
+        date: "11 May 2023", 
+        unit: "789 TRAINEE",  
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+      },
+
+      { title: "THIS TIME", 
+        date: "21 Jul 2023", 
+        unit: "789 TRAINEE",  
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=MD_GRqxhASs",  
+        ytId: "MD_GRqxhASs" 
+      },
+
+      { title: "BLIND SPOT", 
+        date: " 12 Aug 2023", 
+        unit: "789 Debut group (BUS)",  
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=XocCpTyhgKg",  
+        ytId: "XocCpTyhgKg" 
+      },
+
+      { title: "ROAD TRIP", 
+        date: "12 Aug 2023", 
+        unit: "789 Debut group (BUS)",  
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=z9qYNtnnCYU",  
+        ytId: "z9qYNtnnCYU" 
+      },
+
+      { title: "FORGET ME NOT", 
+        date: " 12 Aug 2023", 
+        unit: "789 Debut group (BUS)",  
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=EPD85C3vi9Y",  
+        ytId: "EPD85C3vi9Y" 
+      },
+
+
+
+      { title: "Because of You, I Shine", 
+        date: "06 Dec 2023", 
+        unit: "BUS",  
+        type: "Debut Single", 
+        yt: "https://www.youtube.com/watch?v=8nrioo1HXk8",  
+        ytId: "8nrioo1HXk8" 
+      },
+
+      { title: "Watch Your Step",          
+        date: "14 Feb 2024", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=Rz4ekn199jU", 
+        ytId: "Rz4ekn199jU" 
+      },
+
+      { title: "แค่ไหนแค่นั้น (No Matter What)", 
+        date: "01 May 2024", 
+        unit: "BUS5", 
+        type: "Unit Single", 
+        yt: "https://www.youtube.com/watch?v=FuadV-aiigQ", 
+        ytId: "FuadV-aiigQ" 
+      },
+
+      { title: "แค่น้องชาย (Brother Zone)", 
+        date: "05 Jun 2024", 
+        unit: "BUS7", 
+        type: "Unit Single", 
+        yt: "https://www.youtube.com/watch?v=LBSrgQvErZM", 
+        ytId: "LBSrgQvErZM" 
+      },
+
+      { title: "LIAR",                    
+        date: "11 Sep 2024", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=KQF6M-3URC8", 
+        ytId: "KQF6M-3URC8" 
+      },
+
+      { title: "TRANSFORMER",              
+        date: "31 Oct 2024", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=KFSmddEew0k", 
+        ytId: "KFSmddEew0k" 
+      },
+
+      { title: "สุขสันต์วันคิดถึง (Happily Missing You)", 
+        date: "04 Dec 2024", 
+        unit: "BUS", 
+        type: "Single", 
+        yt: "https://www.youtube.com/watch?v=Lgw-71F1PIw", 
+        ytId: "Lgw-71F1PIw" 
+      },
+
+      { title: "BOW WOW",                 
+        date: "26 Mar 2025", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=_bmm0cuNmJc", 
+        ytId: "_bmm0cuNmJc" 
+      },
+
+      { title: "BOSS IN THE BUILDING",    
+        date: "09 Jul 2025", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=C97iWCAJ61w", 
+        ytId: "C97iWCAJ61w" 
+      },
+
+      { title: "BB",                      
+        date: "03 Sep 2025", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=-NKioeH1iwQ", 
+        ytId: "-NKioeH1iwQ" 
+      },
+
+      { title: "ยังรักอยู่ไหม (Stars.)",  
+        date: "05 Nov 2025", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=5zqPEV6tb_E", 
+        ytId: "5zqPEV6tb_E" 
+      },
+      { title: "Because of You, I Shine (Japanese Ver.)", 
+        date: "15 Apr 2025", 
+        unit: "BUS", 
+        type: "Japanese Ver.", 
+        yt: "https://www.youtube.com/watch?v=AFsHeF7SKDs", 
+        ytId: "AFsHeF7SKDs" 
+      },
+
+      { title: "So Blue",                 
+        date: "21 Jan 2026", 
+        unit: "BUS",  
+        type: "Single",       
+        yt: "https://www.youtube.com/watch?v=KLuCFhq3vNM", 
+        ytId: "KLuCFhq3vNM" 
+      },
+
+      { title: "คับเฮีย (Kub Here)",      
+      date: "18 Mar 2026", 
+      unit: "BUS",  
+      type: "Single",       
+      yt: "https://www.youtube.com/watch?v=VUL5DJ5HB30", 
+      ytId: "VUL5DJ5HB30" 
+    },
+
+    { title: "ฟิลลิ่งแบบว่าอู้วว!",
+      date: " 14 Mar 2024", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=DdNinknbetM", 
+      ytId: "DdNinknbetM" 
+    },
+
+    { title: "เฟี้ยว",
+      date: "6 Jul 2024", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=hSwFzaGX9Ww", 
+      ytId: "hSwFzaGX9Ww" 
+    },
+
+    { title: "ภาพเรา (Good Quality Picture)",
+      date: "7 Sep 2024", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=VB4ux0FVUR0", 
+      ytId: "VB4ux0FVUR0" 
+    },
+
+    { title: "กี่หมื่นครั้งที่ตกหลุมรักคนเดิม",
+      date: "10 Dec 2024", 
+      unit: "MARCKRIS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=RtcDnGerYo4", 
+      ytId: "RtcDnGerYo4" 
+    },
+
+    { title: "CATCH ME",
+      date: "17 Dec 2024", 
+      unit: "JUNGT",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=Iu-uIp7B-Lc", 
+      ytId: "Iu-uIp7B-Lc" 
+    },
+
+    { title: "กั๊ก (No-status Status)",
+      date: "29 Jan 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=DkqDL4BGaIE", 
+      ytId: "DkqDL4BGaIE" 
+    },
+
+    { title: "Because of You, I Shine (Japanese Version)",
+      date: "15 Apr 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=AFsHeF7SKDs", 
+      ytId: "AFsHeF7SKDs" 
+    },
+
+    { title: "RISE AND SHINE",
+      date: "4 May 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=2Azkv2cUgbc", 
+      ytId: "2Azkv2cUgbc" 
+    },
+
+    { title: "หายใจทิ้ง (boys just wanna be boys)",
+      date: "29 Aug 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=biJnHOtpUh8", 
+      ytId: "biJnHOtpUh8" 
+    },
+
+    { title: "หายใจทิ้ง (boys just wanna be boys) [Japanese Version]",
+      date: "6 Nov 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=BPVer6AkcE4", 
+      ytId: "BPVer6AkcE4" 
+    },
+
+    { title: "Make Your Moment",
+      date: "18 Aug 2025", 
+      unit: "BUS",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=yRjdRUGJIOk", 
+      ytId: "yRjdRUGJIOk" 
+    },
+
+    { title: "Take Our Time",
+      date: "11 Feb 2026", 
+      unit: "JINWOOK & PHUTATCHAI",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=wG27OFU3cgk", 
+      ytId: "wG27OFU3cgk" 
+    },
+
+    { title: "It Had To Be You",
+      date: "11 Mar 2026", 
+      unit: "COPPER",  
+      type: "Special Single",       
+      yt: "https://www.youtube.com/watch?v=G4N8-TGMGGY", 
+      ytId: "G4N8-TGMGGY" 
+    },
+
+    { title: "เป็นไรมั้ย (WOULD YOU MIND?)",  
+        date: "17 Oct 2023", 
+        unit: "DAOU PITTAYA x MARC x COPPER",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=TaQe47ewfTQ",  
+        ytId: "TaQe47ewfTQ" 
+    },
+
+    { title: "ตกหลุมรักซ้ำๆ (repeat)",  
+        date: "11 May 2023", 
+        unit: "MEAN Band x PEEMWASU",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "เก่งไม่พอ",  
+        date: "11 May 2023", 
+        unit: "sarah salola x MARCKRIS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS x sarah salola",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",  
+        date: "11 May 2023", 
+        unit: "BUS5 x Mirrr",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "กี่เหตุผล (100REASONS)",  
+        date: "11 May 2023", 
+        unit: "Mirrr x BUS5",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Your Guy",  
+        date: "11 May 2023", 
+        unit: "YourMOOD x JUNGT BUS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",  
+        date: "11 May 2023", 
+        unit: "JUNGT x YourMOOD",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",  
+        date: "11 May 2023", 
+        unit: "COPPER x PHUTATCHAI",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "เพื่อนสนิท",  
+        date: "11 May 2023", 
+        unit: "COPPER x PHUTATCHAI",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่น้องชาย (brother zone)",  
+        date: "11 May 2023", 
+        unit: "BUS7 x Billkin PP Krit",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "ยอม (Surrender)",  
+        date: "11 May 2023", 
+        unit: "Billkin PP Krit x BUS7",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น x แค่น้องชาย",  
+        date: "11 May 2023", 
+        unit: "KNOMJEAN x ALAN, HEART",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่น้องชาย (brother zone)",  
+        date: "11 May 2023", 
+        unit: "JACKIE x COPPER",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Medley ฉันมันเป็นคนแบบนี้, R U OK?, แค่ไหนแค่นั้น, งอนตลอด",  
+        date: "11 May 2023", 
+        unit: "บูม สหรัฐ, คอปเปอร์, ไอซ์ พาริส, และทิกเกอร์ Game Boys Live Session",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "ทฤษฎี 11 เดือน (11 months)",  
+        date: "11 May 2023", 
+        unit: "บูม สหรัฐ VS คอปเปอร์ เดชาวัต Game Boys Live Session",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แอบรัก (เพื่อนรัก)",  
+        date: "11 May 2023", 
+        unit: "KIN Feat. MARCKRIS BUS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่น้องชาย (brother zone)",  
+        date: "11 May 2023", 
+        unit: "ทิกเกอร์ เทริโอ VS คอปเปอร์ เดชาวัต Game Boys Live Session",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "พยายาม",  
+        date: "11 May 2023", 
+        unit: "PHUTATCHAI",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Happier",  
+        date: "11 May 2023", 
+        unit: " ALAN",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "เธอมากับฝน",  
+        date: "11 May 2023", 
+        unit: "HEART",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "WICKED",  
+        date: "11 May 2023", 
+        unit: "CJUNG PERSES x JUNGT BUS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "I Think They Call This Love",  
+        date: "11 May 2023", 
+        unit: "KHUNPOL",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Heather",  
+        date: "11 May 2023", 
+        unit: "JINWOOK",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "I'm Ok // Not Ok",  
+        date: "11 May 2023", 
+        unit: "COPPER x PHUTATCHAI",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "All BUS's Song Medley",  
+        date: "11 May 2023", 
+        unit: "BUS because of you i shine",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Lemon",  
+        date: "11 May 2023", 
+        unit: "NEX",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "อันเฟรนด์ (Unfriend)",  
+        date: "11 May 2023", 
+        unit: "COPPER",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Dive",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "สักวันหนึ่ง",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Somewhere Only We Know",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "สิ่งที่สวยงาม",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "ยังรักอยู่ไหม",  
+        date: "11 May 2023", 
+        unit: "MARCKRIS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "NO WAY",  
+        date: "11 May 2023", 
+        unit: "MEYOU x KHUNPOL",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "ยิ่งคบยิ่งไม่รัก (Why?)",  
+        date: "11 May 2023", 
+        unit: "BUSDICE",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",  
+        date: "11 May 2023", 
+        unit: "BUSDICE",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "แค่น้องชาย (brother zone)",  
+        date: "11 May 2023", 
+        unit: "BUSDICE",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "อยากแชร์เพลงรักทุกเพลงให้เธอ อยากแชร์เพลงรักให้เธอทุกวัน y(our) song",  
+        date: "11 May 2023", 
+        unit: "BUSDICE",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "9 นาฬิกา",  
+        date: "11 May 2023", 
+        unit: "THAI",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "blue",  
+        date: "11 May 2023", 
+        unit: "AA",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Perfect",  
+        date: "11 May 2023", 
+        unit: "PUN feat. KHUNPOL",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "เพลงรักเพลงแรก",  
+        date: "11 May 2023", 
+        unit: "JUNGT",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "คับใจ(อยู่ได้) - ONLY YOU	",  
+        date: "11 May 2023", 
+        unit: "OFFROAD x AA BUS",  
+        type: "LIVE SESSION", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    { title: "Off My Face	",  
+        date: "11 May 2023", 
+        unit: "PEEMWASU",  
+        type: "BUS COVER PROJECT", 
+        yt: "https://www.youtube.com/watch?v=75mBKL1-yaI",  
+        ytId: "75mBKL1-yaI" 
+    },
+
+    ];
+
+    const unitClass = { BUS: "unit-all", BUS5: "unit-5", BUS7: "unit-7" };
+
+    function buildList(filter) {
+      const list = document.getElementById("track-list");
+      list.innerHTML = "";
+
+      let lastYear = null;
+
+      const filtered = tracks.filter(t => {
+        if (filter === "all")  return true;
+        if (filter === "BUS5") return t.unit === "BUS5";
+        if (filter === "BUS7") return t.unit === "BUS7";
+        if (filter === "BUS")  return t.unit === "BUS";
+        if (filter === "789 TRAINEE")  return t.unit === "789 TRAINEE";
+        if (filter === "Special Single")  return t.type === "Special Single";
+        if (filter === "LIVE SESSION")  return t.type === "LIVE SESSION";
+        if (filter === "BUS COVER PROJECT")  return t.type === "BUS COVER PROJECT";
+        if (!isNaN(filter))    return t.year === parseInt(filter);
+        return true;
+      }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      filtered.forEach(t => {
+        if (t.year !== lastYear) {
+          lastYear = t.year;
+          const label = document.createElement("div");
+          label.className = "section-label";
+          label.textContent = t.year;
+          list.appendChild(label);
+        }
+
+        const thumb = `https://img.youtube.com/vi/${t.ytId}/mqdefault.jpg`;
+
+        const row = document.createElement("div");
+        row.className = "track-row";
+        row.innerHTML = `
+          <div class="track-info">
+            <img class="track-thumb" src="${thumb}" alt="${t.title}" loading="lazy">
+            <div class="track-text">
+              <div class="track-title">${t.title}</div>
+              <div class="track-sub">${t.unit}</div>
+            </div>
+          </div>
+          <div class="track-date">${t.date}</div>
+          <div class="track-type">
+            <span class="tag ${unitClass[t.unit]}">${t.type}</span>
+          </div>
+          <div class="track-listen">
+            <a href="${t.yt}" target="_blank" class="yt-btn" aria-label="ดูใน YouTube">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+              </svg>
+              YouTube
+            </a>
+          </div>
+        `;
+        list.appendChild(row);
+      });
+
+      if (filtered.length === 0) {
+        const empty = document.createElement("div");
+        empty.style.cssText = "padding: 40px 24px; color: var(--hint); font-family: 'DM Mono', monospace; font-size: 0.8rem;";
+        empty.textContent = "ไม่พบเพลง";
+        list.appendChild(empty);
+      }
+    }
+
+    function filterTracks(filter, btn) {
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      buildList(filter);
+    }
+
+    buildList("all");
+  </script>
+
+</body>
+</html>
