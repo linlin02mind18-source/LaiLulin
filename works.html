@@ -146,6 +146,7 @@
       flex-shrink: 0;
     }
 
+
     .track-title {
       font-size: 0.95rem;
       font-weight: 500;
@@ -312,8 +313,6 @@
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterTracks('all', this)">ทั้งหมด</button>
     <button class="filter-btn" onclick="filterTracks('BUS', this)">BUS (Full)</button>
-    <button class="filter-btn" onclick="filterTracks('BUS5', this)">BUS5</button>
-    <button class="filter-btn" onclick="filterTracks('BUS7', this)">BUS7</button>
     <button class="filter-btn" onclick="filterTracks('789 TRAINEE', this)">789 TRAINEE</button>
     <button class="filter-btn" onclick="filterTracks('Special Single', this)">Special Single</button>
     <button class="filter-btn" onclick="filterTracks('LIVE SESSION', this)">LIVE SESSION</button>
@@ -430,8 +429,6 @@
       const filtered = tracks.filter(t => {
         const matchFilter =
           filter === "all"               ? true :
-          filter === "BUS5"              ? t.unit === "BUS5" :
-          filter === "BUS7"              ? t.unit === "BUS7" :
           filter === "BUS"               ? t.unit === "BUS" :
           filter === "789 TRAINEE"       ? t.unit.startsWith("789") :
           filter === "Special Single"    ? t.type === "Special Single" :
