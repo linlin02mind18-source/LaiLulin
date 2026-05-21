@@ -3,90 +3,356 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Members (สมาชิก)</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+  <title>BUS — Members</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+Thai:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #faf8f4;
+      --bg: #f7f4ef;
       --card: #ffffff;
-      --ink: #1a1a1a;
+      --ink: #181614;
       --sub: #6b6560;
-      --hint: #b0aba4;
+      --hint: #b8b3ac;
       --accent: #c8956c;
       --accent2: #7a9e8a;
-      --border: #ebe8e2;
+      --border: #e8e3dc;
+      --gold: #c9a96e;
     }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--ink);
       font-family: 'Noto Sans Thai', sans-serif;
       min-height: 100vh;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO HEADER ── */
+    .site-header {
+      padding: 72px 48px 56px;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 64px;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
     }
 
-    h1, h2, .serif { font-family: 'Playfair Display', serif; }
-    .mono { font-family: 'DM Mono', monospace; }
-
-    .profile-container {
-      background-color: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+    .site-header__eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
     }
 
-    .profile-photo {
-      background-size: cover;
-      background-position: center;
-    }
-
-    .social-btn {
-      padding: 10px 20px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
+    .site-header__title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 0.95;
       color: var(--ink);
     }
 
+    .site-header__title span {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .site-header__meta {
+      text-align: right;
+    }
+
+    .site-header__count {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-style: italic;
+      color: var(--hint);
+      line-height: 1;
+    }
+
+    .site-header__label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--hint);
+    }
+
+    /* ── MEMBERS GRID ── */
+    .members-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      margin-bottom: 24px;
+    }
+
+    .card:hover {
+      box-shadow: 0 24px 64px rgba(0,0,0,0.07);
+      transform: translateY(-3px);
+    }
+
+    /* photo */
+    .card__photo {
+      position: relative;
+      min-height: 420px;
+      background-size: cover;
+      background-position: center top;
+      overflow: hidden;
+    }
+
+    .card__photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,16,12,0.35) 0%, transparent 50%);
+    }
+
+    .card__badge {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+    }
+
+    /* body */
+    .card__body {
+      padding: 44px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .card__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.0;
+      margin-bottom: 6px;
+    }
+
+    .card__name-th {
+      color: var(--accent);
+    }
+
+    .card__group {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--hint);
+    }
+
+    /* info grid */
+    .card__info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .info-block__label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-block__label::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .info-block__text {
+      font-size: 0.82rem;
+      color: var(--sub);
+      line-height: 1.8;
+    }
+
+    /* loves */
+    .card__loves-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--hint);
+      margin-bottom: 10px;
+    }
+
+    .loves-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .love-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: var(--bg);
+      color: var(--sub);
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+    }
+
+    .love-tag:hover {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    /* socials */
+    .card__socials {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .socials-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--hint);
+      margin-bottom: 12px;
+    }
+
+    .socials-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .social-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--sub);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .social-btn span { color: var(--accent); }
+
     .social-btn:hover {
-      background-color: var(--ink);
+      background: var(--ink);
       color: var(--bg);
       border-color: var(--ink);
       transform: translateY(-2px);
     }
 
-    .tag {
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      background: var(--bg);
-      color: var(--sub);
-      border: 1px solid var(--border);
+    .social-btn:hover span { color: var(--bg); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 8px 0;
+      opacity: 0.4;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      font-style: italic;
+      color: var(--hint);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .card { grid-template-columns: 1fr; }
+      .card__photo { min-height: 340px; }
+      .card__body { padding: 28px 28px; }
+      .card__info { grid-template-columns: 1fr; gap: 20px; }
+      .site-header { padding: 40px 24px 32px; }
+      .members-wrapper { padding: 0 24px 60px; }
     }
   </style>
 </head>
-<body class="p-4 ">
+<body>
 
-  <div id="profiles" class="flex flex-col items-center gap-4 w-full"></div>
+  <header class="site-header">
+    <div>
+      <p class="site-header__eyebrow">Because of you i shine</p>
+      <h1 class="site-header__title">BUS<br><span>Members</span></h1>
+    </div>
+    <div class="site-header__meta">
+      <div class="site-header__count">12</div>
+      <div class="site-header__label">artists</div>
+    </div>
+  </header>
+
+  <div class="members-wrapper" id="profiles"></div>
 
   <script>
     const members = [
       {
         name: "ALAN",
         nameTh: "พศวีร์ ศรีอรุโณทัย",
+        role: "Leader · Main Rapper",
         photo: "https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGIdtIYeaMAAbpT-.jpg%3Ffit%3D900%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y",
         bio: "เกิด: 31 กรกฎาคม 2002 (2545)<br>ราศี: กรกฎ / สิงห์<br>ส่วนสูง: 185 ซม.<br>สาขาวิชาเทคโนโลยีสร้างสรรค์ (Creative Technology) มหาวิทยาลัยมหิดล",
-        personality: "MBTI: ENTP<br>Emoji ประจำตัว: 🏋️<br>จุดเด่น / ตำแหน่ง: Leader, Main Rapper พี่ใหญ่สุดเท่ ผู้เป็นเสาหลักและคอยดูแลน้องๆ ในวง",
-        loves: ["🎮 playing games", "📸 taking photos", "🎸 playing music", "🏋️ working out"],
+        personality: "MBTI: ENTP<br>Emoji: 🏋️<br>พี่ใหญ่สุดเท่ ผู้เป็นเสาหลักและคอยดูแลน้องๆ ในวง",
+        loves: ["🎮 Playing Games", "📸 Photography", "🎸 Music", "🏋️ Working Out"],
         socials: [
           { label: "IG", handle: "alan.busofficial", url: "https://www.instagram.com/alan.busofficial/" },
           { label: "X",  handle: "alan_pasawee",     url: "https://x.com/alan_pasawee?lang=en" },
@@ -96,10 +362,11 @@
       {
         name: "MARCKRIS",
         nameTh: "กฤษณ์ กัญจนาทิพย์",
+        role: "Main Vocal",
         photo: "https://s359.thaicdn.net//pagebuilder/41b297b3-3ef4-4022-9732-663d79b2a012.jpg",
-        bio: "เกิด: 12 ธันวาคม 2002 (2545)<br>ราศี: พิจิก / ธนู<br>ส่วนสูง: 172 ซม.<br>การศึกษา: คณะสถาปัตยกรรมศาสตร์ หลักสูตรนานาชาติ (INDA) จุฬาลงกรณ์มหาวิทยาลัย",
-        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🦖 <br>จุดเด่น / ตำแหน่ง: Main Vocal เจ้าของเสียงร้องทรงพลัง และแฮปปี้ไวรัสประจำวง",
-        loves: ["🎤 singing", "🕺 dancing", "😎 performance", ],
+        bio: "เกิด: 12 ธันวาคม 2002 (2545)<br>ราศี: พิจิก / ธนู<br>ส่วนสูง: 172 ซม.<br>คณะสถาปัตยกรรมศาสตร์ หลักสูตรนานาชาติ (INDA) จุฬาฯ",
+        personality: "MBTI: ENFP<br>Emoji: 🦖<br>เจ้าของเสียงร้องทรงพลัง และแฮปปี้ไวรัสประจำวง",
+        loves: ["🎤 Singing", "🕺 Dancing", "😎 Performance"],
         socials: [
           { label: "IG", handle: "marckris.busofficial", url: "https://www.instagram.com/marckris.busofficial" },
           { label: "X",  handle: "Marckrisk",            url: "https://x.com/Marckrisk" },
@@ -109,10 +376,11 @@
       {
         name: "KHUNPOL",
         nameTh: "ปองพล ปัญญามิตร",
+        role: "Main Dance",
         photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2023/NOV%202023/Khunpol%20in%20Paris/655adce025048.jpeg",
-        bio: "เกิด: 17 มีนาคม 2003 (2546)<br>ราศี: มีน<br>ส่วนสูง: 179 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
-        personality: "MBTI: INTJ<br>Emoji ประจำตัว: 🐕‍🦺 🐈‍⬛ <br>จุดเด่น / ตำแหน่ง: Main Dance เพอร์ฟอร์แมนซ์บนเวทีดึงดูดสายตา มีความมุ่งมั่นและคาริสม่าสูง",
-        loves: ["📚 Enjoys reading books", "🎬 watching movies", "🎧 listening to music", ],
+        bio: "เกิด: 17 มีนาคม 2003 (2546)<br>ราศี: มีน<br>ส่วนสูง: 179 ซม.<br>คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: INTJ<br>Emoji: 🐕‍🦺 🐈‍⬛<br>เพอร์ฟอร์แมนซ์บนเวทีดึงดูดสายตา มีความมุ่งมั่นและคาริสม่าสูง",
+        loves: ["📚 Reading", "🎬 Movies", "🎧 Music"],
         socials: [
           { label: "IG", handle: "khunpol.busofficial",  url: "https://www.instagram.com/khunpol.busofficial" },
           { label: "X",  handle: "khunppol",             url: "https://x.com/khunppol" },
@@ -122,10 +390,11 @@
       {
         name: "HEART",
         nameTh: "ชุติวัฒน์ จันเคน",
+        role: "Main Dance",
         photo: "https://thebeus.com/_next/image/?url=https%3A%2F%2Fi0.wp.com%2Fbk.thebeus.com%2Fwp-content%2Fuploads%2F2024%2F03%2FGH-mOyvaoAA1c3U.jpg%3Ffit%3D796%252C1200%26ssl%3D1&w=1920&q=75&dpl=dpl_2t4VuoLYWknYi6zDPUztu5zDqF4y",
-        bio: "เกิด: 8 เมษายน 2003 (2546)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 174 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
-        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐽 💖 <br>จุดเด่น / ตำแหน่ง: Main Dance เต้นเก่ง ไลน์เต้นสวยพริ้วไหว และเป็นเจ้าของรอยยิ้มละลายใจ",
-        loves: ["🏀 Likes sports", " 🎮 Playing gaming", "🎸 jamming with music"],
+        bio: "เกิด: 8 เมษายน 2003 (2546)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 174 ซม.<br>คณะนิเทศศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+        personality: "MBTI: ENFP<br>Emoji: 🐽 💖<br>เต้นเก่ง ไลน์เต้นสวยพริ้วไหว เจ้าของรอยยิ้มละลายใจ",
+        loves: ["🏀 Sports", "🎮 Gaming", "🎸 Music"],
         socials: [
           { label: "IG", handle: "heart.busofficial",  url: "https://www.instagram.com/heart.busofficial/" },
           { label: "X",  handle: "heartchuthiwat",     url: "https://x.com/heartchuthiwat" },
@@ -135,10 +404,11 @@
       {
         name: "JINWOOK",
         nameTh: "คิม จินวุค (Kim Jinwook)",
+        role: "Lead Vocal",
         photo: "https://pbs.twimg.com/media/Gqo9iuiXcAA5HrF?format=jpg&name=small",
-        bio: "เกิด: 16 กรกฎาคม 2004 (2547)<br>ราศี: กรกฎ<br>ส่วนสูง: 178 ซม.<br>การศึกษา: คณะบริหารธุรกิจ (BBA) มหาวิทยาลัยอัสสัมชัญ",
-        personality: "MBTI: ENFJ<br>Emoji ประจำตัว: 🐰 😝 <br>จุดเด่น / ตำแหน่ง: Lead Vocal พี่ชายชาวเกาหลีที่แสนอบอุ่น เสียงร้องละมุน และมีใจรักแฟชั่น",
-        loves: ["🎼 Enjoys songwriting", "🕺 dance practice", "🏀 basketball", "💪 taking care of himself like"],
+        bio: "เกิด: 16 กรกฎาคม 2004 (2547)<br>ราศี: กรกฎ<br>ส่วนสูง: 178 ซม.<br>คณะบริหารธุรกิจ (BBA) มหาวิทยาลัยอัสสัมชัญ",
+        personality: "MBTI: ENFJ<br>Emoji: 🐰 😝<br>พี่ชายชาวเกาหลีที่แสนอบอุ่น เสียงร้องละมุน มีใจรักแฟชั่น",
+        loves: ["🎼 Songwriting", "🕺 Dancing", "🏀 Basketball", "💪 Fitness"],
         socials: [
           { label: "IG", handle: "jinwook.busofficial",  url: "https://www.instagram.com/jinwook.busofficial/" },
           { label: "X",  handle: "Jinwookkimjin",        url: "https://x.com/Jinwookkimjin" },
@@ -148,10 +418,11 @@
       {
         name: "THAI",
         nameTh: "ชญานนท์ ภาคฐิน",
+        role: "Sub Vocal · Visual",
         photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2024/SEP%202024/TMC/66e506bed1031.jpg",
-        bio: "เกิด: 26 กันยายน 2004 (2547)<br>ราศี: กันย์ / ตุลย์<br>ส่วนสูง: 178.5 ซม.<br>การศึกษา: คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเกษตรศาสตร์",
-        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐕‍🦺 ⚽️ <br>จุดเด่น / ตำแหน่ง: Sub Vocal / Visual หล่อออร่าโดดเด่น มีความขี้เล่นและเข้ากับคนง่าย",
-        loves: ["⚽️ Likes football", "🎮 Playing gaming", "🥁 playing music"],
+        bio: "เกิด: 26 กันยายน 2004 (2547)<br>ราศี: กันย์ / ตุลย์<br>ส่วนสูง: 178.5 ซม.<br>คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเกษตรศาสตร์",
+        personality: "MBTI: ENFP<br>Emoji: 🐕‍🦺 ⚽️<br>หล่อออร่าโดดเด่น ขี้เล่นและเข้ากับคนง่าย",
+        loves: ["⚽️ Football", "🎮 Gaming", "🥁 Music"],
         socials: [
           { label: "IG", handle: "thai.busofficial",  url: "https://www.instagram.com/thai.busofficial/" },
           { label: "X",  handle: "thaichayanon",      url: "https://x.com/thaichayanon" },
@@ -161,10 +432,11 @@
       {
         name: "NEX",
         nameTh: "ณัฐกิตติ์ แช่มดารา",
+        role: "Main Dance",
         photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/MAR%202025/KHUNPOL%20BD/67d7f20850020.jpg",
-        bio: "เกิด: 18 มีนาคม 2005 (2548)<br>ราศี: มีน<br>ส่วนสูง: 180 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
-        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🐈‍⬛ ⏭️ <br>จุดเด่น / ตำแหน่ง: Main Dance สายแฟชั่นนิสต้าตัวยง มีเอกลักษณ์เฉพาะตัวเวลาเพอร์ฟอร์ม",
-        loves: ["👕 Into fashion", "🧩 building Gundam/LEGO", "🎨 Art"],
+        bio: "เกิด: 18 มีนาคม 2005 (2548)<br>ราศี: มีน<br>ส่วนสูง: 180 ซม.<br>คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: ENFP<br>Emoji: 🐈‍⬛ ⏭️<br>สายแฟชั่นนิสต้าตัวยง มีเอกลักษณ์เฉพาะตัวเวลาเพอร์ฟอร์ม",
+        loves: ["👕 Fashion", "🧩 Gundam / LEGO", "🎨 Art"],
         socials: [
           { label: "IG", handle: "nex.busofficial",  url: "https://www.instagram.com/nex.busofficial/" },
           { label: "X",  handle: "NxNattakit",       url: "https://x.com/NxNattakit" },
@@ -174,10 +446,11 @@
       {
         name: "PHUTATCHAI",
         nameTh: "ธัชชัย ลิ้มปัญญากุล",
+        role: "Lead Vocal",
         photo: "https://mintmagth.s3.ap-southeast-1.amazonaws.com/photos/shares/Mint%20People/2025/APR/PHU%20BUS/67f4c80d10dd8.jpg",
-        bio: "เกิด: 10 เมษายน 2005 (2548)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 183 ซม.<br>การศึกษา: สาขาปรัชญา การเมือง และเศรษฐศาสตร์ (PPE) มหาวิทยาลัยธรรมศาสตร์",
-        personality: "MBTI: ESTP<br>Emoji ประจำตัว:  🏒<br>จุดเด่น / ตำแหน่ง: Lead Vocal พลังงานล้นเหลือ มีภาพลักษณ์หนุ่มสปอร์ตและเสียงร้องเป็นเอกลักษณ์",
-        loves: ["🏒 Ice Hockey", "🎤 enjoys singing"],
+        bio: "เกิด: 10 เมษายน 2005 (2548)<br>ราศี: มีน / เมษ<br>ส่วนสูง: 183 ซม.<br>สาขา PPE มหาวิทยาลัยธรรมศาสตร์",
+        personality: "MBTI: ESTP<br>Emoji: 🏒<br>พลังงานล้นเหลือ หนุ่มสปอร์ต เสียงร้องเป็นเอกลักษณ์",
+        loves: ["🏒 Ice Hockey", "🎤 Singing"],
         socials: [
           { label: "IG", handle: "phutatchai.busofficial",  url: "https://www.instagram.com/phutatchai.busofficial" },
           { label: "X",  handle: "phutatchai",              url: "https://x.com/phutatchai" },
@@ -187,10 +460,11 @@
       {
         name: "COPPER",
         nameTh: "เดชาวัต พรเดชาพิพัฒ",
+        role: "Main Vocal",
         photo: "https://www.siamzone.com/ig/media/13787241138/3435918834732189653-1.jpg",
-        bio: "เกิด: 18 เมษายน 2006 (2549)<br>ราศี: เมษ<br>ส่วนสูง: 173 ซม.<br>การศึกษา: วิทยาลัยนวัตกรรมสื่อสารสังคม มหาวิทยาลัยศรีนครินทรวิโรฒ",
-        personality: "MBTI: ESFJ<br>Emoji ประจำตัว: 🐈 🍣 <br>จุดเด่น / ตำแหน่ง: Main Vocal เอนเตอร์เทนเนอร์เก่ง ร่าเริงสดใส สร้างเสียงหัวเราะให้วงเสมอ",
-        loves: ["🎮 Likes gaming", "🧠 solving Rubik’s Cubes", "🎤 singing"],
+        bio: "เกิด: 18 เมษายน 2006 (2549)<br>ราศี: เมษ<br>ส่วนสูง: 173 ซม.<br>วิทยาลัยนวัตกรรมสื่อสารสังคม มศว",
+        personality: "MBTI: ESFJ<br>Emoji: 🐈 🍣<br>เอนเตอร์เทนเนอร์เก่ง ร่าเริงสดใส สร้างเสียงหัวเราะให้วงเสมอ",
+        loves: ["🎮 Gaming", "🧠 Rubik's Cubes", "🎤 Singing"],
         socials: [
           { label: "IG", handle: "copper.busofficial",  url: "https://www.instagram.com/copper.busofficial" },
           { label: "X",  handle: "cucopper11",          url: "https://x.com/cucopper11" },
@@ -200,10 +474,11 @@
       {
         name: "AA",
         nameTh: "อชิรกรณ์ สุวิทยะเสถียร",
+        role: "Lead Vocal",
         photo: "https://s359.thaicdn.net//pagebuilder/1d36ce69-261a-4894-9f50-edca4f776781.jpg",
-        bio: "เกิด: 22 มิถุนายน 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 179 ซม.<br>การศึกษา: นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาลงกรณ์มหาวิทยาลัย",
-        personality: "MBTI: INFP<br>Emoji ประจำตัว: 🎸 <br>จุดเด่น / ตำแหน่ง: Lead Vocal น่ารักตะมุตะมิ มีทักษะการเล่นดนตรีที่หลากหลาย",
-        loves: ["🎸 playing music", "📸 taking photos", "🍱 Japanese Food Lover"],
+        bio: "เกิด: 22 มิถุนายน 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 179 ซม.<br>นิเทศศาสตร์ หลักสูตรนานาชาติ จุฬาฯ",
+        personality: "MBTI: INFP<br>Emoji: 🎸<br>น่ารักตะมุตะมิ มีทักษะการเล่นดนตรีที่หลากหลาย",
+        loves: ["🎸 Music", "📸 Photography", "🍱 Japanese Food"],
         socials: [
           { label: "IG", handle: "aa.busofficial",  url: "https://www.instagram.com/aa.busofficial/" },
           { label: "X",  handle: "aa_ashirakorn",   url: "https://x.com/aa_ashirakorn" },
@@ -213,23 +488,25 @@
       {
         name: "JUNG T",
         nameTh: "ธีร์ บุญเสริมสุวงศ์",
+        role: "Main Rapper",
         photo: "https://www.imgcomp.thebeus.com/compressed/jungt.busofficial_1749649967320.webp",
-        bio: "เกิด: 3 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 175 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
-        personality: "MBTI: INTP<br>Emoji ประจำตัว: 🌱 <br>จุดเด่น / ตำแหน่ง: Main Rapper แร็ปเปอร์เสียงทุ้มต่ำ เสน่ห์แพรวพราวและมีความเท่สไตล์คูลๆ",
-        loves: ["🕺 Loves dancing", "🎤 rapping", "⚽football"],
+        bio: "เกิด: 3 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 175 ซม.<br>คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: INTP<br>Emoji: 🌱<br>แร็ปเปอร์เสียงทุ้มต่ำ เสน่ห์แพรวพราว เท่สไตล์คูลๆ",
+        loves: ["🕺 Dancing", "🎤 Rapping", "⚽ Football"],
         socials: [
           { label: "IG", handle: "jungt.busofficial",  url: "https://www.instagram.com/jungt.busofficial/" },
           { label: "X",  handle: "Jungyippy",          url: "https://x.com/Jungyippy?lang=en" },
-          { label: "TT", handle: "jungt.busofficial",  url: "https://www.tiktok.com/@jungt.busofficial" },
+          { label: "TT", handle: "@jungt.busofficial", url: "https://www.tiktok.com/@jungt.busofficial" },
         ],
       },
       {
         name: "PEEMWASU",
         nameTh: "วสุพล พรพนานุรักษ์",
+        role: "Main Vocal · Lead Dance",
         photo: "https://s359.kapook.com/pagebuilder/a0cbb40c-1f26-40bd-b6fb-9ea525814e28.jpg",
-        bio: "เกิด: 8 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน/กรกฎ<br>ส่วนสูง: 187 ซม.<br>การศึกษา: คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
-        personality: "MBTI: ENFP<br>Emoji ประจำตัว: 🏀 <br>จุดเด่น / ตำแหน่ง: Main Vocal / Lead Dance น้องเล็กตัวสูงปรี๊ด เสียงร้อง R&B โดดเด่น และกวนๆ ขี้เล่น",
-        loves: ["🏀 basketball", "💪 working out", "🎶 singing"],
+        bio: "เกิด: 8 กรกฎาคม 2006 (2549)<br>ราศี: เมถุน / กรกฎ<br>ส่วนสูง: 187 ซม.<br>คณะนิเทศศาสตร์ มหาวิทยาลัยกรุงเทพ",
+        personality: "MBTI: ENFP<br>Emoji: 🏀<br>น้องเล็กตัวสูงปรี๊ด เสียงร้อง R&B โดดเด่น กวนๆ ขี้เล่น",
+        loves: ["🏀 Basketball", "💪 Working Out", "🎶 Singing"],
         socials: [
           { label: "IG", handle: "peemwasu.busofficial",  url: "https://www.instagram.com/peemwasu.busofficial" },
           { label: "X",  handle: "PEEMWASU_",             url: "https://x.com/PEEMWASU_" },
@@ -238,63 +515,50 @@
       },
     ];
 
-    function renderMember(m) {
-      const tags = m.loves.map(l => `<span class="tag">${l}</span>`).join("\n            ");
+    function renderMember(m, i) {
+      const tags = m.loves.map(l => `<span class="love-tag">${l}</span>`).join("");
       const socials = m.socials.map(s => `
-          <a href="${s.url}" target="_blank" class="social-btn mono">
-            <span>${s.label}:</span> ${s.handle}
-          </a>`).join("");
+        <a href="${s.url}" target="_blank" class="social-btn">
+          <span>${s.label}:</span>${s.handle}
+        </a>`).join("");
+      const roles = m.role.split(' · ').map(r => `<span class="badge">${r}</span>`).join("");
 
       return `
-    <div class="max-w-5xl w-full profile-container flex flex-col md:flex-row">
-      <div class="md:w-2/5 min-h-[450px] profile-photo"
-           style="background-image: url('${m.photo}');">
-      </div>
-
-      <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-between">
-        <header class="mb-8">
-          <h1 class="text-5xl mb-2">${m.name}<br>
-            <span class="text-[--accent]">${m.nameTh}</span>
-          </h1>
-          <div class="flex gap-4 text-sm text-[--sub] mono">
-            <span>BUS (because of you i shine)</span>
+      <div class="card">
+        <div class="card__photo" style="background-image:url('${m.photo}');">
+          <div class="card__badge">${roles}</div>
+        </div>
+        <div class="card__body">
+          <div class="card__header">
+            <h2 class="card__name">${m.name}<br><span class="card__name-th">${m.nameTh}</span></h2>
+            <p class="card__group">BUS — because of you i shine</p>
           </div>
-        </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+          <div class="card__info">
+            <div class="info-block">
+              <div class="info-block__label">ประวัติเบื้องต้น</div>
+              <p class="info-block__text">${m.bio}</p>
+            </div>
+            <div class="info-block">
+              <div class="info-block__label" style="color:var(--accent2)">บุคลิกภาพ</div>
+              <p class="info-block__text">${m.personality}</p>
+            </div>
+          </div>
+
           <div>
-            <h3 class="serif text-xl mb-3 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[--accent]"></span> ประวัติเบื้องต้น
-            </h3>
-            <p class="text-[--sub] text-sm leading-relaxed">${m.bio}</p>
+            <p class="card__loves-label">Things I Love</p>
+            <div class="loves-list">${tags}</div>
           </div>
-          <div>
-            <h3 class="serif text-xl mb-3 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[--accent2]"></span> บุคลิกภาพและสัญลักษณ์
-            </h3>
-            <p class="text-[--sub] text-sm leading-relaxed">${m.personality}</p>
-          </div>
-        </div>
 
-        <div class="mb-10">
-          <h3 class="serif text-lg mb-4 italic text-[--sub]">Things I Love</h3>
-          <div class="flex flex-wrap gap-2">
-            ${tags}
+          <div class="card__socials">
+            <p class="socials-eyebrow">Join my journey</p>
+            <div class="socials-list">${socials}</div>
           </div>
         </div>
-
-        <div class="border-t border-[--border] pt-8">
-          <p class="mono text-[10px] uppercase tracking-[0.2em] mb-4 text-[--hint]">Join my journey</p>
-          <div class="flex flex-wrap gap-3">
-            ${socials}
-          </div>
-        </div>
-      </div>
-    </div>`;
+      </div>`;
     }
 
-    document.getElementById("profiles").innerHTML =
-      members.map(renderMember).join("\n");
+    document.getElementById("profiles").innerHTML = members.map(renderMember).join("");
   </script>
 
 </body>
