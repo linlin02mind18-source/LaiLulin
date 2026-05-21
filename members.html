@@ -120,7 +120,7 @@
       position: relative;
       min-height: 420px;
       background-size: cover;
-      background-position: center top;
+      background-position: center;
       overflow: hidden;
     }
 
@@ -317,6 +317,22 @@
       color: var(--hint);
     }
 
+    .site-header__back {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sub);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+  transition: color 0.2s;
+}
+
+.site-header__back:hover { color: var(--ink); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 860px) {
       .card { grid-template-columns: 1fr; }
@@ -330,10 +346,12 @@
 </head>
 <body>
 
+
   <header class="site-header">
     <div>
-      <p class="site-header__eyebrow">Because of you i shine</p>
-      <h1 class="site-header__title">BUS<br><span>Members</span></h1>
+      <a href="index.html" class="site-header__back">&larr; Back to Home</a>
+      <p class="site-header__eyebrow">Members</p>
+      <h1 class="site-header__title">BUS<br><span>Because of you i shine</span></h1>
     </div>
     <div class="site-header__meta">
       <div class="site-header__count">12</div>
