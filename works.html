@@ -218,6 +218,62 @@
       flex-shrink: 0;
     }
 
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--hint);
+      padding: 20px 24px 6px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .search-wrap {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      padding: 7px 14px 7px 32px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--ink);
+      width: 180px;
+      outline: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.03em;
+    }
+
+    .search-input::placeholder { color: var(--hint); }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      width: 220px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      color: var(--hint);
+      pointer-events: none;
+      width: 13px;
+      height: 13px;
+    }
+
+    .page-header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     @media (max-width: 680px) {
       .col-header { grid-template-columns: 1fr 120px; }
       .col-header span:nth-child(2),
@@ -225,13 +281,22 @@
       .track-row { grid-template-columns: 1fr 120px; }
       .track-date, .track-type { display: none; }
       .track-thumb { width: 44px; height: 44px; }
+      .search-input { width: 140px; }
+      .search-input:focus { width: 160px; }
     }
   </style>
 </head>
 <body>
 
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input class="search-input" type="text" placeholder="ค้นหาเพลง..." id="search-input" oninput="onSearch(this.value)">
+  </div>
+
   <div class="page-header">
-    <div class="mb-8">
+    <div>
       <a href="index.html" style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sub); text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:color 0.2s;"
          onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--sub)'">
         &larr; Back to Home
@@ -277,6 +342,15 @@
 
       // LIVE SESSION
       { title: "เป็นไรมั้ย (WOULD YOU MIND?) feat. DAOU PITTAYA",  date: "17 Oct 2023", unit: "DAOU PITTAYA x MARC x COPPER", type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=TaQe47ewfTQ", ytId: "TaQe47ewfTQ" },
+
+      // BUS SINGLES
+      { title: "Because of You, I Shine",   date: "06 Dec 2023", unit: "BUS",  type: "Debut Single",  yt: "https://www.youtube.com/watch?v=8nrioo1HXk8",  ytId: "8nrioo1HXk8" },
+      { title: "Watch Your Step",           date: "14 Feb 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=Rz4ekn199jU",  ytId: "Rz4ekn199jU" },
+      { title: "ฟิลลิ่งแบบว่าอู้วว!",     date: "14 Mar 2024", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=DdNinknbetM",  ytId: "DdNinknbetM" },
+      { title: "แค่ไหนแค่นั้น (No Matter What)",  date: "01 May 2024", unit: "BUS5", type: "Unit Single", yt: "https://www.youtube.com/watch?v=FuadV-aiigQ", ytId: "FuadV-aiigQ" },
+      { title: "แค่น้องชาย (Brother Zone)", date: "05 Jun 2024", unit: "BUS7", type: "Unit Single",  yt: "https://www.youtube.com/watch?v=LBSrgQvErZM",  ytId: "LBSrgQvErZM" },
+
+      // LIVE SESSION — 2024
       { title: "ตกหลุมรักซ้ำๆ (repeat)",           date: "25 Mar 2024", unit: "MEAN Band x PEEMWASU",       type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=Z_uwmp1_fCA", ytId: "Z_uwmp1_fCA" },
       { title: "เก่งไม่พอ",                         date: "06 May 2024", unit: "sarah salola x MARCKRIS",   type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=LBJ38pPVB2Q", ytId: "LBJ38pPVB2Q" },
       { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",   date: "13 May 2024", unit: "MARCKRIS x sarah salola",   type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=nWff_k61KrY", ytId: "nWff_k61KrY" },
@@ -290,56 +364,53 @@
       { title: "ยอม (Surrender)",                   date: "02 Aug 2024", unit: "Billkin PP Krit x BUS7",   type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=RF6vTngCN7A", ytId: "RF6vTngCN7A" },
       { title: "แค่ไหนแค่นั้น x แค่น้องชาย",      date: "05 Aug 2024", unit: "KNOMJEAN x ALAN, HEART",   type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=EwpHFaADLhM", ytId: "EwpHFaADLhM" },
       { title: "แอบรัก (เพื่อนรัก)",               date: "17 Sep 2024", unit: "KIN feat. MARCKRIS BUS",   type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=892Q2PpEouo", ytId: "892Q2PpEouo" },
+
+      // LIVE SESSION — 2025
       { title: "WICKED (Original: ALLDAYPROJECT)",  date: "09 Sep 2025", unit: "JUNG PERSES x JUNGT BUS",  type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=7hwmAbG6WFc", ytId: "7hwmAbG6WFc" },
       { title: "สิ่งที่สวยงาม",                    date: "19 Nov 2025", unit: "Whal & Dolph x MARCKRIS", type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=_qsUORvm6Gg", ytId: "_qsUORvm6Gg" },
       { title: "Somewhere Only We Know (Original: Keane)",  date: "15 Nov 2025", unit: "MARCKRIS x TorSaksit", type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=h5mstmdocSA", ytId: "h5mstmdocSA" },
-      { title: "NO WAY (Acoustic Session)",        date: "02 Dec 2025", unit: "MEYOU x KHUNPOL",          type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=Qw0CQH5Lt7Y", ytId: "Qw0CQH5Lt7Y" },
-      { title: "ยิ่งคบยิ่งไม่รัก (Why?)",          date: "15 Dec 2025", unit: "BUSDICE",                  type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=iPtgBjhWNCc", ytId: "iPtgBjhWNCc" },
+      { title: "NO WAY (Acoustic Session)",         date: "02 Dec 2025", unit: "MEYOU x KHUNPOL",          type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=Qw0CQH5Lt7Y", ytId: "Qw0CQH5Lt7Y" },
+      { title: "ยิ่งคบยิ่งไม่รัก (Why?)",          date: "15 Dec 2025", unit: "BUSDICE",                  type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=iPTGbjhWncc", ytId: "iPTGbjhWncc" },
       { title: "แค่ไหนแค่นั้น (NO MATTER WHAT)",   date: "19 Dec 2025", unit: "BUSDICE",                  type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=WqF3CaECZMA", ytId: "WqF3CaECZMA" },
       { title: "แค่น้องชาย (brother zone)",         date: "22 Dec 2025", unit: "BUSDICE",                  type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=E8keLxW7YN4", ytId: "E8keLxW7YN4" },
-      { title: "Perfect feat. KHUNPOL",            date: "05 Feb 2026", unit: "PUN feat. KHUNPOL",         type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=K28Ef03c040", ytId: "K28Ef03c040" },
 
-      // BUS SINGLES
-      { title: "Because of You, I Shine",   date: "06 Dec 2023", unit: "BUS",  type: "Debut Single",  yt: "https://www.youtube.com/watch?v=8nrioo1HXk8",  ytId: "8nrioo1HXk8" },
-      { title: "Watch Your Step",           date: "14 Feb 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=Rz4ekn199jU",  ytId: "Rz4ekn199jU" },
-      { title: "ฟิลลิ่งแบบว่าอู้วว!",          date: "14 Mar 2024", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=DdNinknbetM",  ytId: "DdNinknbetM" },
-      { title: "แค่ไหนแค่นั้น (No Matter What)",  date: "01 May 2024", unit: "BUS5", type: "Unit Single", yt: "https://www.youtube.com/watch?v=FuadV-aiigQ", ytId: "FuadV-aiigQ" },
-      { title: "แค่น้องชาย (Brother Zone)", date: "05 Jun 2024", unit: "BUS7", type: "Unit Single",  yt: "https://www.youtube.com/watch?v=LBSrgQvErZM",  ytId: "LBSrgQvErZM" },
+      // LIVE SESSION — 2026
+      { title: "Perfect feat. KHUNPOL",             date: "05 Feb 2026", unit: "PUN feat. KHUNPOL",         type: "LIVE SESSION", yt: "https://www.youtube.com/watch?v=K28Ef03c040", ytId: "K28Ef03c040" },
       { title: "เฟี้ยว",                   date: "06 Jul 2024", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=hSwFzaGX9Ww",  ytId: "hSwFzaGX9Ww" },
       { title: "ภาพเรา (Good Quality Picture)",  date: "07 Sep 2024", unit: "BUS", type: "Special Single", yt: "https://www.youtube.com/watch?v=VB4ux0FVUR0", ytId: "VB4ux0FVUR0" },
-      { title: "LIAR",                     date: "11 Sep 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=KQF6M-3URC8",  ytId: "KQF6M-3URC8" },
-      { title: "TRANSFORMER",              date: "31 Oct 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=KFSmddEew0k",  ytId: "KFSmddEew0k" },
+      { title: "LIAR",                      date: "11 Sep 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=KQF6M-3URC8",  ytId: "KQF6M-3URC8" },
+      { title: "TRANSFORMER",               date: "31 Oct 2024", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=KFSmddEew0k",  ytId: "KFSmddEew0k" },
       { title: "สุขสันต์วันคิดถึง (Happily Missing You)",  date: "04 Dec 2024", unit: "BUS", type: "Single", yt: "https://www.youtube.com/watch?v=Lgw-71F1PIw", ytId: "Lgw-71F1PIw" },
       { title: "กี่หมื่นครั้งที่ตกหลุมรักคนเดิม",  date: "10 Dec 2024", unit: "MARCKRIS", type: "Special Single", yt: "https://www.youtube.com/watch?v=RtcDnGerYo4", ytId: "RtcDnGerYo4" },
       { title: "CATCH ME",                  date: "17 Dec 2024", unit: "JUNGT",type: "Special Single",yt: "https://www.youtube.com/watch?v=Iu-uIp7B-Lc",  ytId: "Iu-uIp7B-Lc" },
 
       { title: "กั๊ก (No-status Status)",   date: "29 Jan 2025", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=DkqDL4BGaIE",  ytId: "DkqDL4BGaIE" },
       { title: "BOW WOW",                   date: "26 Mar 2025", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=_bmm0cuNmJc",  ytId: "_bmm0cuNmJc" },
-      { title: "Because of You, I Shine (Japanese Ver.)", date: "15 Apr 2025", unit: "BUS", type: "Single", yt: "https://www.youtube.com/watch?v=AFsHeF7SKDs", ytId: "AFsHeF7SKDs" },
+      { title: "Because of You, I Shine (Japanese Ver.)",  date: "15 Apr 2025", unit: "BUS", type: "Single", yt: "https://www.youtube.com/watch?v=AFsHeF7SKDs", ytId: "AFsHeF7SKDs" },
       { title: "RISE AND SHINE",            date: "04 May 2025", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=2Azkv2cUgbc",  ytId: "2Azkv2cUgbc" },
 
       // BUS COVER PROJECT
       { title: "พยายาม (Original: O-PAVEE)",             date: "21 Jul 2025", unit: "PHUTATCHAI", type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=NF9jzpMUW-A", ytId: "NF9jzpMUW-A" },
       { title: "BOSS IN THE BUILDING",      date: "09 Jul 2025", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=C97iWCAJ61w",  ytId: "C97iWCAJ61w" },
       { title: "Make Your Moment",          date: "18 Aug 2025", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=yRjdRUGJIOk",  ytId: "yRjdRUGJIOk" },
-      { title: "Happier (Original: Ed Sheeran)",         date: "18 Aug 2025", unit: "ALAN",       type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=k3G1-6AIAJ4", ytId: "k3G1-6AIAJ4" },
-      { title: "หายใจทิ้ง (boys just wanna be boys)",   date: "29 Aug 2025", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=biJnHOtpUh8",  ytId: "biJnHOtpUh8" },
-      { title: "เธอมากับฝน (Original: เอ็กซ์ ฐิติ)",   date: "08 Sep 2025", unit: "HEART",      type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=7bdpqWYaZMo", ytId: "7bdpqWYaZMo" },
+      { title: "Happier (Original: Ed Sheeran)",          date: "18 Aug 2025", unit: "ALAN",       type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=k3G1-6AIAJ4", ytId: "k3G1-6AIAJ4" },
+      { title: "หายใจทิ้ง (boys just wanna be boys)",    date: "29 Aug 2025", unit: "BUS",  type: "Special Single",yt: "https://www.youtube.com/watch?v=biJnHOtpUh8",  ytId: "biJnHOtpUh8" },
+      { title: "เธอมากับฝน (Original: เอ็กซ์ ฐิติ)",    date: "08 Sep 2025", unit: "HEART",      type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=7bdpqWYaZMo", ytId: "7bdpqWYaZMo" },
       { title: "BB",                        date: "03 Sep 2025", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=-NKioeH1iwQ",  ytId: "-NKioeH1iwQ" },
       { title: "I Think They Call This Love (Original: Elliot James Reay)",  date: "22 Sep 2025", unit: "KHUNPOL", type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=TWib9UU-pS4", ytId: "TWib9UU-pS4" },
       { title: "Heather (Original: Conan Gray)",          date: "06 Oct 2025", unit: "JINWOOK",    type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=03sGOlybW_Q", ytId: "03sGOlybW_Q" },
-      { title: "Lemon (Original: Kenshi Yonezu)",        date: "20 Oct 2025", unit: "NEX",        type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=ewaZDkf41Fc", ytId: "ewaZDkf41Fc" },
+      { title: "Lemon (Original: Kenshi Yonezu)",         date: "20 Oct 2025", unit: "NEX",        type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=ewaZDkf41Fc", ytId: "ewaZDkf41Fc" },
       { title: "ยังรักอยู่ไหม (Stars.)",   date: "05 Nov 2025", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=5zqPEV6tb_E",  ytId: "5zqPEV6tb_E" },
       { title: "หายใจทิ้ง (boys just wanna be boys) [Japanese Version]",  date: "06 Nov 2025", unit: "BUS", type: "Special Single", yt: "https://www.youtube.com/watch?v=BPVer6AkcE4", ytId: "BPVer6AkcE4" },
       { title: "อันเฟรนด์ (Unfriend) (Original: Helmetheads)",  date: "10 Nov 2025", unit: "COPPER", type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=HgjjF6I3mh0", ytId: "HgjjF6I3mh0" },
-      { title: "Dive (Original: Olivia Dean)",           date: "24 Nov 2025", unit: "MARCKRIS",  type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=9nlGJnQGG-Q", ytId: "9nlGJnQGG-Q" },
+      { title: "Dive (Original: Olivia Dean)",            date: "24 Nov 2025", unit: "MARCKRIS",  type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=9nlGJnQGG-Q", ytId: "9nlGJnQGG-Q" },
 
       { title: "So Blue",                   date: "21 Jan 2026", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=KLuCFhq3vNM",  ytId: "KLuCFhq3vNM" },
       { title: "9 นาฬิกา (Original: SPF)",  date: "05 Jan 2026", unit: "THAI", type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=wNr2XRZ2XuE", ytId: "wNr2XRZ2XuE" },
       { title: "blue (Original: yung kai)",  date: "02 Feb 2026", unit: "AA",  type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=Z4dT9VKRLJI", ytId: "Z4dT9VKRLJI" },
       { title: "Take Our Time",             date: "11 Feb 2026", unit: "JINWOOK & PHUTATCHAI", type: "Special Single", yt: "https://www.youtube.com/watch?v=wG27OFU3cgk", ytId: "wG27OFU3cgk" },
       { title: "เพลงรักเพลงแรก / Blooming (Original: LANDOKMAI)",  date: "16 Feb 2026", unit: "JUNGT", type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=AqA7hOn0_Hk", ytId: "AqA7hOn0_Hk" },
-      { title: "It Had To Be You",         date: "11 Mar 2026", unit: "COPPER",type: "Special Single",yt: "https://www.youtube.com/watch?v=G4N8-TGMGGY",  ytId: "G4N8-TGMGGY" },
+      { title: "It Had To Be You",          date: "11 Mar 2026", unit: "COPPER",type: "Special Single",yt: "https://www.youtube.com/watch?v=G4N8-TGMGGY",  ytId: "G4N8-TGMGGY" },
       { title: "Off My Face (Original: Justin Bieber)",   date: "02 Mar 2026", unit: "PEEMWASU",  type: "BUS COVER PROJECT", yt: "https://www.youtube.com/watch?v=7cNVdqGqbQ0", ytId: "7cNVdqGqbQ0" },
       { title: "คับเฮีย (Kub Here)",       date: "18 Mar 2026", unit: "BUS",  type: "Single",        yt: "https://www.youtube.com/watch?v=VUL5DJ5HB30",  ytId: "VUL5DJ5HB30" },
 
@@ -347,22 +418,29 @@
 
     const unitClass = { BUS: "unit-all", BUS5: "unit-5", BUS7: "unit-7" };
 
-    function buildList(filter) {
+    let currentFilter = "all";
+
+    function buildList(filter, query = "") {
       const list = document.getElementById("track-list");
       list.innerHTML = "";
       let lastYear = null;
 
+      const q = query.trim().toLowerCase();
+
       const filtered = tracks.filter(t => {
-        if (filter === "all")               return true;
-        if (filter === "BUS5")              return t.unit === "BUS5";
-        if (filter === "BUS7")              return t.unit === "BUS7";
-        if (filter === "BUS")               return t.unit === "BUS";
-        if (filter === "789 TRAINEE")       return t.unit.startsWith("789");
-        if (filter === "Special Single")    return t.type === "Special Single";
-        if (filter === "LIVE SESSION")      return t.type === "LIVE SESSION";
-        if (filter === "BUS COVER PROJECT") return t.type === "BUS COVER PROJECT";
-        if (!isNaN(filter))                 return t.year === parseInt(filter);
-        return true;
+        const matchFilter =
+          filter === "all"               ? true :
+          filter === "BUS5"              ? t.unit === "BUS5" :
+          filter === "BUS7"              ? t.unit === "BUS7" :
+          filter === "BUS"               ? t.unit === "BUS" :
+          filter === "789 TRAINEE"       ? t.unit.startsWith("789") :
+          filter === "Special Single"    ? t.type === "Special Single" :
+          filter === "LIVE SESSION"      ? t.type === "LIVE SESSION" :
+          filter === "BUS COVER PROJECT" ? t.type === "BUS COVER PROJECT" :
+          !isNaN(filter)                 ? t.year === parseInt(filter) : true;
+
+        const matchSearch = q === "" || t.title.toLowerCase().includes(q) || t.unit.toLowerCase().includes(q);
+        return matchFilter && matchSearch;
       }).sort((a, b) => new Date(a.date) - new Date(b.date));
 
       filtered.forEach(t => {
@@ -411,13 +489,19 @@
       }
     }
 
-    function filterTracks(filter, btn) {
-      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      buildList(filter);
+    function onSearch(value) {
+      buildList(currentFilter, value);
     }
 
-    buildList("all");
+    function filterTracks(filter, btn) {
+      currentFilter = filter;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const q = document.getElementById("search-input").value;
+      buildList(filter, q);
+    }
+
+    buildList("all", "");
   </script>
 
 </body>
